@@ -1,0 +1,8 @@
+version: '2'
+services:
+  schoolarapp-app:
+    build: ../../..
+    container_name: schoolarapp-app
+    environment:
+    ports:
+      - 8081:8081

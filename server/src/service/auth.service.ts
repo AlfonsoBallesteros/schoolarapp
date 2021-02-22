@@ -6,6 +6,7 @@ import { Payload } from '../security/payload.interface';
 import { AuthorityRepository } from '../repository/authority.repository';
 import { UserService } from '../service/user.service';
 import { UserDTO } from './dto/user.dto';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class AuthService {
@@ -13,8 +14,9 @@ export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
         @InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository,
-        private userService: UserService
-    ) {}
+        private userService: UserService,
+        private emailService: EmailService
+    ) { }
 
     async login(userLogin: UserLoginDTO): Promise<any> {
         const loginUserName = userLogin.username;
@@ -34,12 +36,12 @@ export class AuthService {
         const payload: Payload = { id: user.id, username: user.login, authorities: user.authorities };
 
         /* eslint-disable */
-    return {
-      id_token: this.jwtService.sign(payload)
-    };
-  }
+        return {
+            id_token: this.jwtService.sign(payload)
+        };
+    }
 
-  /* eslint-enable */
+    /* eslint-enable */
     async validateUser(payload: Payload): Promise<UserDTO | undefined> {
         return await this.findUserWithAuthById(payload.id);
     }
@@ -80,7 +82,9 @@ export class AuthService {
             throw new HttpException('Email is already in use!', HttpStatus.BAD_REQUEST);
         }
         newUser.authorities = ['ROLE_USER'];
+        newUser.activated = false;
         const user: UserDTO = await this.userService.save(newUser);
+        await this.emailService.signUp(user);
         return user;
     }
 

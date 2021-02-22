@@ -6,6 +6,7 @@ import { UserDTO } from '../../service/dto/user.dto';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { ApiBearerAuth, ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { AuthService } from '../../service/auth.service';
+import { EmailService } from '../../service/email.service';
 
 @Controller('api')
 @UseInterceptors(LoggingInterceptor)
@@ -13,7 +14,8 @@ import { AuthService } from '../../service/auth.service';
 export class AccountController {
     logger = new Logger('AccountController');
 
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService,
+        private emailService: EmailService) { }
 
     @Post('/register')
     @ApiOperation({ title: 'Register user' })
@@ -25,6 +27,18 @@ export class AccountController {
     async registerAccount(@Req() req: Request, @Body() userDTO: UserDTO): Promise<any> {
         return await this.authService.registerNewUser(userDTO);
     }
+
+/*     @Get('/activate/:token')
+    @ApiOperation({ title: 'Verify Email' })
+    @ApiResponse({
+        status: 201,
+        description: 'Verified Email',
+        type: UserDTO,
+    })
+    async verifyEmail(@Param('token') token): Promise<any> {
+        return await this.emailService.validateEmail(token);
+    } */
+
 
     @Get('/activate')
     @ApiBearerAuth()

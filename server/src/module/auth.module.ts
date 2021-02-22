@@ -11,6 +11,7 @@ import { AuthorityRepository } from '../repository/authority.repository';
 
 import { AuthController } from '../web/rest/auth.controller';
 import { AccountController } from '../web/rest/account.controller';
+import { EmailService } from '../service/email.service';
 
 @Module({
     imports: [
@@ -23,7 +24,7 @@ import { AccountController } from '../web/rest/account.controller';
         }),
     ],
     controllers: [UserJWTController, AuthController, AccountController],
-    providers: [AuthService, JwtStrategy],
+    providers: [AuthService, JwtStrategy, EmailService],
     exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

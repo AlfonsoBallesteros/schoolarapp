@@ -28,7 +28,7 @@ export class AccountController {
         return await this.authService.registerNewUser(userDTO);
     }
 
-/*     @Get('/activate/:token')
+    @Get('/activate/:token')
     @ApiOperation({ title: 'Verify Email' })
     @ApiResponse({
         status: 201,
@@ -37,7 +37,7 @@ export class AccountController {
     })
     async verifyEmail(@Param('token') token): Promise<any> {
         return await this.emailService.validateEmail(token);
-    } */
+    }
 
 
     @Get('/activate')

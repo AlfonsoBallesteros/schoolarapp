@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import * as jwt from 'jsonwebtoken';
 import SendGrid from "@sendgrid/mail";
 
 import { UserDTO } from './dto/user.dto';
+import { UserService } from './user.service';
 
 @Injectable()
 export class EmailService {
 
-    constructor() { }
+    constructor(private userService: UserService) { }
 
     async signUp(user: UserDTO): Promise<any> {
 
@@ -23,7 +24,7 @@ export class EmailService {
 
         const output = `
         <h2>Please click on below link to activate your account</h2>
-        <p><a href="${BASE_URL}/auth/activate/${token}">ACTIVA TU CUENTA</p></a>
+        <p><a href="${BASE_URL}/api/activate/${token}">ACTIVA TU CUENTA</p></a>
         <p><b>NOTE: </b> The above activation link expires in 30 minutes.</p>
         `;
 
@@ -39,10 +40,32 @@ export class EmailService {
             html: output,
         };
 
-
         SendGrid.send(msg)
             .then(resp => console.log('Email sent...'))
-            .catch(error => console.log(error.message));
+            .catch(error => { console.log(error.message); throw new HttpException("Email couldn't be sent", HttpStatus.BAD_REQUEST) });
+    }
+
+
+    async validateEmail(token: string): Promise<any> {
+
+        const JWT_SECRET_EMAIL = process.env.JWT_SECRET_EMAIL;
+
+        try {
+
+            let { id }: any = jwt.verify(token, JWT_SECRET_EMAIL);
+            let userSaved: UserDTO = await this.userService.findById(id);
+            if (!userSaved) throw new HttpException("User doesn't exist", HttpStatus.BAD_REQUEST);
+
+            userSaved.activated = true;
+            const userUpdated = await this.userService.update(userSaved);
+            if (!userUpdated) throw new HttpException("User couldn't be updated", HttpStatus.BAD_REQUEST);
+
+            return { messsage: "Verified User" };
+
+        } catch (error) {
+            return error;
+        }
+
     }
 
 

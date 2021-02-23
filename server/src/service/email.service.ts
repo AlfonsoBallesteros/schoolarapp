@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import * as jwt from 'jsonwebtoken';
 import SendGrid from "@sendgrid/mail";
-import Mailgen from "mailgen";
 
 import { UserDTO } from './dto/user.dto';
 import { UserService } from './user.service';
@@ -20,7 +19,7 @@ export class EmailService {
     constructor(private userService: UserService) { SendGrid.setApiKey(this.API_KEY_SENDGRID) }
 
     async signUp(user: UserDTO): Promise<any> {
-        
+
         const token = jwt.sign({ id: user.id }, this.JWT_SECRET_EMAIL, { expiresIn: '30m' });
 
         const msg = {
@@ -32,7 +31,6 @@ export class EmailService {
             subject: 'Sending with Twilio SendGrid is Fun',
             templateId: this.TEMPLATE_VERIFY_EMAIL,
             dynamic_template_data: {
-                /* urlBoton: `${BASE_URL}/api/activate/${token}`, */
                 userFirstName: user.firstName,
                 userLastName: user.lastName,
                 urlToVerify: `${this.BASE_URL}/api/activate/${token}`
@@ -67,7 +65,6 @@ export class EmailService {
                 subject: 'Sending with Twilio SendGrid is Fun',
                 templateId: this.TEMPLATE_CONFIRM_EMAIL,
                 dynamic_template_data: {
-                    /* urlBoton: `${BASE_URL}/api/activate/${token}`, */
                     userFirstName: userUpdated.firstName,
                     userLastName: userUpdated.lastName,
                     urlToVerify: `${this.BASE_URL}/api/activate/${token}`

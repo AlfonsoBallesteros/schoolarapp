@@ -40,6 +40,7 @@
     "dotenv": "8.2.0",
     "eureka-js-client": "4.5.0",
     "js-yaml": "3.14.0",
+    "mailgen": "^2.0.14",
     "mongodb": "3.6.3",
     "mongodb-memory-server": "6.9.2",
     "passport": "0.4.1",

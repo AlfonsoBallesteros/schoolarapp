@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './module/auth.module';
 import { ormConfig } from './orm.config';
 import { config } from './config';
@@ -12,22 +13,18 @@ import { ReferenceModule } from './module/reference.module';
 // jhipster-needle-add-service-module-to-main-import - JHipster will import service modules here, do not remove
 
 @Module({
-  imports: [
+    imports: [
     TypeOrmModule.forRootAsync({ useFactory: ormConfig }),
     ServeStaticModule.forRoot({
-      rootPath: config.getClientPath()
-    }),
-    AuthModule,
-    PersonModule,
-    TypeModule,
-    ReferenceModule
+            rootPath: config.getClientPath(),
+        })
     // jhipster-needle-add-entity-module-to-main - JHipster will add entity modules here, do not remove
-  ],
-  controllers: [
+    ],
+    controllers: [
     // jhipster-needle-add-controller-module-to-main - JHipster will add controller modules here, do not remove
-  ],
-  providers: [
+    ],
+    providers: [
     // jhipster-needle-add-service-module-to-main - JHipster will add service modules here, do not remove
-  ]
+    ],
 })
 export class AppModule {}

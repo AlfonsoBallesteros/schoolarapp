@@ -5,9 +5,9 @@ import { ReferenceRepository } from '../repository/reference.repository';
 import { ReferenceService } from '../service/reference.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ReferenceRepository])],
-  controllers: [ReferenceController],
-  providers: [ReferenceService],
-  exports: [ReferenceService]
+    imports: [TypeOrmModule.forFeature([ReferenceRepository])],
+    controllers: [ReferenceController],
+    providers: [ReferenceService],
+    exports: [ReferenceService],
 })
 export class ReferenceModule {}

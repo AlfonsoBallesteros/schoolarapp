@@ -2,6 +2,7 @@ import yaml from 'js-yaml';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Logger } from '@nestjs/common';
+import { createConnection } from 'typeorm';
 
 const logger = new Logger('Config');
 

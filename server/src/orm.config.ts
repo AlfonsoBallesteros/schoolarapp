@@ -30,14 +30,11 @@ async function ormConfig(): Promise<TypeOrmModuleOptions> {
 
     if (process.env.NODE_ENV === 'prod') {
         ormconfig = {
-            name: 'default',
             type: 'mongodb',
-            database: 'schoolarapp',
-            host: 'localhost',
-            port: 27018,
-            username: 'sa',
-            password: 'yourStrong(!)Password',
-            logging: false,
+            host: 'mongodb+srv://Alfonso:app%40cluster0.rdco6.mongodb.net/test?retryWrites=true&w=majority',
+            logging: true,
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
             synchronize: commonConf.SYNCRONIZE,
             entities: commonConf.ENTITIES,
             migrations: commonConf.MIGRATIONS,

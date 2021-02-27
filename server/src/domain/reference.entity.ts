@@ -9,14 +9,14 @@ import { State } from './enumeration/state';
  */
 @Entity('reference')
 export class Reference extends BaseEntity {
-  @Column({ name: 'name', nullable: true })
-  name: string;
+    @Column({ name: 'name', nullable: true })
+    name: string;
 
-  @Column({ name: 'value', nullable: true })
-  value: string;
+    @Column({ name: 'value', nullable: true })
+    value: string;
 
-  @Column({ type: 'simple-enum', name: 'state', enum: State })
-  state: State;
+    @Column({ type: 'simple-enum', name: 'state', enum: State })
+    state: State;
 
-  // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

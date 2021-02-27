@@ -9,50 +9,50 @@ const relationshipNames = [];
 
 @Injectable()
 export class TypeService {
-  logger = new Logger('TypeService');
+    logger = new Logger('TypeService');
 
-  constructor(@InjectRepository(TypeRepository) private typeRepository: TypeRepository) {}
+    constructor(@InjectRepository(TypeRepository) private typeRepository: TypeRepository) {}
 
-  async findById(id: string): Promise<TypeDTO | undefined> {
-    const options = { relations: relationshipNames };
-    const result = await this.typeRepository.findOne(id, options);
-    return TypeMapper.fromEntityToDTO(result);
-  }
-
-  async findByfields(options: FindOneOptions<TypeDTO>): Promise<TypeDTO | undefined> {
-    const result = await this.typeRepository.findOne(options);
-    return TypeMapper.fromEntityToDTO(result);
-  }
-
-  async findAndCount(options: FindManyOptions<TypeDTO>): Promise<[TypeDTO[], number]> {
-    options.relations = relationshipNames;
-    const resultList = await this.typeRepository.findAndCount(options);
-    const typeDTO: TypeDTO[] = [];
-    if (resultList && resultList[0]) {
-      resultList[0].forEach(type => typeDTO.push(TypeMapper.fromEntityToDTO(type)));
-      resultList[0] = typeDTO;
+    async findById(id: string): Promise<TypeDTO | undefined> {
+        const options = { relations: relationshipNames };
+        const result = await this.typeRepository.findOne(id, options);
+        return TypeMapper.fromEntityToDTO(result);
     }
-    return resultList;
-  }
 
-  async save(typeDTO: TypeDTO): Promise<TypeDTO | undefined> {
-    const entity = TypeMapper.fromDTOtoEntity(typeDTO);
-    const result = await this.typeRepository.save(entity);
-    return TypeMapper.fromEntityToDTO(result);
-  }
-
-  async update(typeDTO: TypeDTO): Promise<TypeDTO | undefined> {
-    const entity = TypeMapper.fromDTOtoEntity(typeDTO);
-    const result = await this.typeRepository.save(entity);
-    return TypeMapper.fromEntityToDTO(result);
-  }
-
-  async deleteById(id: string): Promise<void | undefined> {
-    await this.typeRepository.delete(id);
-    const entityFind = await this.findById(id);
-    if (entityFind) {
-      throw new HttpException('Error, entity not deleted!', HttpStatus.NOT_FOUND);
+    async findByfields(options: FindOneOptions<TypeDTO>): Promise<TypeDTO | undefined> {
+        const result = await this.typeRepository.findOne(options);
+        return TypeMapper.fromEntityToDTO(result);
     }
-    return;
-  }
+
+    async findAndCount(options: FindManyOptions<TypeDTO>): Promise<[TypeDTO[], number]> {
+        options.relations = relationshipNames;
+        const resultList = await this.typeRepository.findAndCount(options);
+        const typeDTO: TypeDTO[] = [];
+        if (resultList && resultList[0]) {
+            resultList[0].forEach(type => typeDTO.push(TypeMapper.fromEntityToDTO(type)));
+            resultList[0] = typeDTO;
+        }
+        return resultList;
+    }
+
+    async save(typeDTO: TypeDTO): Promise<TypeDTO | undefined> {
+        const entity = TypeMapper.fromDTOtoEntity(typeDTO);
+        const result = await this.typeRepository.save(entity);
+        return TypeMapper.fromEntityToDTO(result);
+    }
+
+    async update(typeDTO: TypeDTO): Promise<TypeDTO | undefined> {
+        const entity = TypeMapper.fromDTOtoEntity(typeDTO);
+        const result = await this.typeRepository.save(entity);
+        return TypeMapper.fromEntityToDTO(result);
+    }
+
+    async deleteById(id: string): Promise<void | undefined> {
+        await this.typeRepository.delete(id);
+        const entityFind = await this.findById(id);
+        if (entityFind) {
+            throw new HttpException('Error, entity not deleted!', HttpStatus.NOT_FOUND);
+        }
+        return;
+    }
 }

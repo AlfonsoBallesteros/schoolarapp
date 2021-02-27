@@ -17,7 +17,10 @@ import { ReferenceModule } from './module/reference.module';
         ServeStaticModule.forRoot({
             rootPath: config.getClientPath(),
         }),
-        AuthModule
+        AuthModule,
+        PersonModule,
+        TypeModule,
+        ReferenceModule
         // jhipster-needle-add-entity-module-to-main - JHipster will add entity modules here, do not remove
     ],
     controllers: [

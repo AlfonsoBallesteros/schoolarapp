@@ -1,5 +1,5 @@
 import { Authority } from './authority.entity';
-import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { BaseEntity } from './base/base.entity';
 import { config } from '../config';
 import { EncryptionTransformer } from 'typeorm-encrypted';

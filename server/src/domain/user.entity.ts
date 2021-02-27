@@ -4,7 +4,7 @@ import { BaseEntity } from './base/base.entity';
 import { config } from '../config';
 import { EncryptionTransformer } from 'typeorm-encrypted';
 
-@Entity('nhi_user')
+@Entity('user')
 export class User extends BaseEntity {
     @Column({ unique: true })
     login: string;

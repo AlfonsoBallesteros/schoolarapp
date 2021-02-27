@@ -31,7 +31,7 @@ async function ormConfig(): Promise<TypeOrmModuleOptions> {
     if (process.env.NODE_ENV === 'prod') {
         ormconfig = {
             type: 'mongodb',
-            host: 'mongodb+srv://Alfonso:app%40cluster0.rdco6.mongodb.net/test?retryWrites=true&w=majority',
+            url: 'mongodb+srv://schoolarapp:glqzVGsoDCzxkM15@cluster0.t6eda.mongodb.net/schoolarapp',
             logging: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,

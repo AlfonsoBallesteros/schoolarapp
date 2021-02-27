@@ -1,0 +1,44 @@
+enum State{
+  ACTIVO,
+  PENDIENTE,
+  PUBLICADO,
+  INACTIVO,
+  BORRADO
+}
+
+entity Person {
+	name String,
+	surname String,
+	birthdate String,
+	phoneNumber String,
+	district String,
+	neighborhood String,
+	stratus String,
+    address String,
+    rh String
+    disease Boolean,
+    disability Boolean,
+    relations String,
+    stateCivil String,
+    profession String,
+}
+
+entity Type{
+	code String
+    name String
+    value String
+    state State
+}
+
+entity Reference{
+	name String
+    value String
+    state State
+}
+
+
+paginate * with pagination
+service * with serviceClass
+dto * with mapstruct
+filter *
+

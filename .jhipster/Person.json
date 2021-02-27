@@ -1,0 +1,73 @@
+{
+    "name": "Person",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "surname",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "birthdate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phoneNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "district",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "neighborhood",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "stratus",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rh",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "disease",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "disability",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "relations",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "stateCivil",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "profession",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20210227002300",
+    "entityTableName": "person",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

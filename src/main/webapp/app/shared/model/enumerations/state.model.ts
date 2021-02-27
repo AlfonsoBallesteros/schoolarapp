@@ -1,0 +1,7 @@
+export const enum State {
+  ACTIVO = 'ACTIVO',
+  PENDIENTE = 'PENDIENTE',
+  PUBLICADO = 'PUBLICADO',
+  INACTIVO = 'INACTIVO',
+  BORRADO = 'BORRADO'
+}

@@ -4,6 +4,10 @@
   "description": "",
   "author": "",
   "license": "MIT",
+  "engines": {
+    "node": "12.x",
+    "npm": "7.x"
+  },
   "scripts": {
     "clean": "rimraf dist ../target/db/",
     "build": "npm run clean && tsc -p tsconfig.build.json && npm run copy-resources",

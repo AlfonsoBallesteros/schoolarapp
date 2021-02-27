@@ -128,12 +128,10 @@
   },
   "scripts": {
     "prettier:format": "prettier --write \"{,src/**/}*.{md,json,ts,tsx,css,scss,yml}\"",
-    "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "npm run lint -- --fix",
     "cleanup": "rimraf target/classes/static/",
     "e2e": "protractor src/test/javascript/protractor.conf.js",
     "postinstall": "node node_modules/protractor/bin/webdriver-manager update --gecko false",
-    "preinstall": "cd server && npm run lint:fix",
     "build": "npm run webpack:prod",
     "build:app": "npm run build && cd server && npm run build",
     "start": "npm run webpack:dev",

@@ -25,10 +25,9 @@
     "test:e2e": "jest --silent --coverage --config ./e2e/jest.e2e.config.json"
   },
   "dependencies": {
-    "@nestjs/common": "7.5.1",
+    "@nestjs/common": "^7.6.13",
     "@nestjs/core": "7.5.1",
     "@nestjs/jwt": "7.2.0",
-    "@nestjs/mongoose": "^7.2.4",
     "@nestjs/passport": "7.1.0",
     "@nestjs/platform-express": "7.5.1",
     "@nestjs/serve-static": "2.1.4",
@@ -42,7 +41,6 @@
     "js-yaml": "3.14.0",
     "mongodb": "^3.6.4",
     "mongodb-memory-server": "6.9.2",
-    "mongoose": "^5.11.18",
     "passport": "0.4.1",
     "passport-jwt": "4.0.0",
     "reflect-metadata": "0.1.13",
@@ -70,7 +68,7 @@
     "nodemon": "1.19.1",
     "prettier": "1.17.0",
     "rimraf": "3.0.2",
-    "sonarqube-scanner": "2.5.0",
+    "sonarqube-scanner": "^2.8.0",
     "supertest": "6.0.1",
     "ts-jest": "24.0.2",
     "ts-node": "8.1.0",

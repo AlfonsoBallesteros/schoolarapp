@@ -7,7 +7,7 @@ import { config } from './config';
 import { Logger, ValidationPipe, BadRequestException } from '@nestjs/common';
 import * as fs from 'fs';
 const logger: Logger = new Logger('Main');
-const port = process.env.NODE_SERVER_PORT || config.get('server.port');
+const port = process.env.PORT || config.get('server.port');
 const useJHipsterRegistry = config.get('eureka.client.enabled');
 
 async function bootstrap(): Promise<void> {

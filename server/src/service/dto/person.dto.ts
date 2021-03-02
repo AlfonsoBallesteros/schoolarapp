@@ -59,40 +59,40 @@ export class PersonDTO extends BaseDTO {
   @ApiModelProperty({ enum: State, description: 'state enum field', required: false })
   state: State;
 
-  @ApiModelProperty({ isArray: true })
+  @ApiModelProperty({ isArray: true, required: false })
   enrollments: any;
 
-  @ApiModelProperty({ isArray: true, })
-  courses: any;
+  @ApiModelProperty({type: CourseDTO, isArray: true, required: false})
+  courses: CourseDTO[];
 
-  @ApiModelProperty({ description: 'typeId relationship' })
+  @ApiModelProperty({ description: 'typeId relationship', required: false })
   typeId: string;
 
-  @ApiModelProperty({ description: 'gender relationship' })
+  @ApiModelProperty({ description: 'gender relationship', required: false })
   gender: string;
 
-  @ApiModelProperty({ description: 'neighborhood relationship' })
+  @ApiModelProperty({ description: 'neighborhood relationship', required: false })
   neighborhood: string;
 
-  @ApiModelProperty({ description: 'city relationship' })
+  @ApiModelProperty({ description: 'city relationship', required: false })
   city: string;
 
-  @ApiModelProperty({ description: 'birthplace relationship' })
+  @ApiModelProperty({ description: 'birthplace relationship', required: false })
   birthplace: string;
 
-  @ApiModelProperty({ description: 'nacionality relationship' })
+  @ApiModelProperty({ description: 'nacionality relationship', required: false })
   nacionality: string;
 
-  @ApiModelProperty({  description: 'cityExp relationship' })
+  @ApiModelProperty({  description: 'cityExp relationship', required: false })
   cityExp: string;
 
-  @ApiModelProperty({ description: 'rh relationship' })
+  @ApiModelProperty({ description: 'rh relationship', required: false })
   rh: string;
 
-  @ApiModelProperty({ description: 'eps relationship' })
+  @ApiModelProperty({ description: 'eps relationship', required: false })
   eps: string;
 
-  @ApiModelProperty({  description: 'relation relationship' })
+  @ApiModelProperty({  description: 'relation relationship', required: false })
   relation: string;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

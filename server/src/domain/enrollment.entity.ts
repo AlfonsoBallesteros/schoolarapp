@@ -50,14 +50,14 @@ export class Enrollment extends BaseEntity {
   @Column({ type: 'simple-enum', name: 'state', enum: State })
   state: State;
 
-  @Column(type => Type)
-  workShop: Type;
+  @Column()
+  workShop: string;
 
-  @Column(type => Type)
-  gradeProx: Type;
+  @Column()
+  gradeProx: string;
 
-  @Column(type => Person)
-  student: Person;
+  @Column()
+  student: string;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

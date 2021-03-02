@@ -63,28 +63,38 @@ export class Person extends BaseEntity {
   @Column({ type: "array", nullable: true })
   enrollments: any;
 
+  @Column()
   typeId: string;
 
+  @Column()
   gender: string;
 
+  @Column()
   neighborhood: string;
 
+  @Column()
   city: string;
 
+  @Column()
   birthplace: string;
 
+  @Column()
   nacionality: string;
 
+  @Column()
   cityExp: string;
 
+  @Column()
   rh: string;
 
+  @Column()
   eps: string;
 
+  @Column()
   relation: string;
 
   @Column({ type: "array", nullable: true })
-  courses: any;
+  courses: Course[];
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

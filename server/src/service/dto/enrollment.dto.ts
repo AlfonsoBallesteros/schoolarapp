@@ -49,14 +49,14 @@ export class EnrollmentDTO extends BaseDTO {
   @ApiModelProperty({ enum: State, description: 'state enum field', required: false })
   state: State;
 
-  @ApiModelProperty({ type: TypeDTO, description: 'workShop relationship' })
-  workShop: TypeDTO;
+  @ApiModelProperty({ description: 'workShop relationship', required: false})
+  workShop: string;
 
-  @ApiModelProperty({ type: TypeDTO, description: 'gradeProx relationship' })
-  gradeProx: TypeDTO;
+  @ApiModelProperty({ description: 'gradeProx relationship', required: false })
+  gradeProx: string;
 
-  @ApiModelProperty({ type: PersonDTO, description: 'student relationship' })
-  student: PersonDTO;
+  @ApiModelProperty({ description: 'student relationship', required: false })
+  student: string;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

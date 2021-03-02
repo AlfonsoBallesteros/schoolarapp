@@ -1,53 +1,90 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Entity, Column, JoinColumn, OneToOne, ManyToOne, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, JoinColumn, OneToOne, ManyToOne, OneToMany, ManyToMany, JoinTable, ObjectID, ObjectIdColumn } from 'typeorm';
 import { BaseEntity } from './base/base.entity';
+
+import { Enrollment } from './enrollment.entity';
+import { Course } from './course.entity';
+import { Type } from './type.entity';
+import { State } from './enumeration/state';
 
 /**
  * A Person.
  */
 @Entity('person')
 export class Person extends BaseEntity {
-    @Column({ name: 'name', nullable: true })
-    name: string;
+  @Column({ name: 'name', nullable: true })
+  name: string;
 
-    @Column({ name: 'surname', nullable: true })
-    surname: string;
+  @Column({ name: 'surname', nullable: true })
+  surname: string;
 
-    @Column({ name: 'birthdate', nullable: true })
-    birthdate: string;
+  @Column({ name: 'document_id', nullable: true })
+  documentId: string;
 
-    @Column({ name: 'phone_number', nullable: true })
-    phoneNumber: string;
+  @Column({ type: 'date', name: 'document_exp_date', nullable: true })
+  documentExpDate: any;
 
-    @Column({ name: 'district', nullable: true })
-    district: string;
+  @Column({ name: 'phone_number', nullable: true })
+  phoneNumber: string;
 
-    @Column({ name: 'neighborhood', nullable: true })
-    neighborhood: string;
+  @Column({ name: 'telephon_number', nullable: true })
+  telephonNumber: string;
 
-    @Column({ name: 'stratus', nullable: true })
-    stratus: string;
+  @Column({ type: 'date', name: 'birthdate', nullable: true })
+  birthdate: any;
 
-    @Column({ name: 'address', nullable: true })
-    address: string;
+  @Column({ name: 'address', nullable: true })
+  address: string;
 
-    @Column({ name: 'rh', nullable: true })
-    rh: string;
+  @Column({ name: 'district', nullable: true })
+  district: string;
 
-    @Column({ type: 'boolean', name: 'disease', nullable: true })
-    disease: boolean;
+  @Column({ name: 'stratus', nullable: true })
+  stratus: string;
 
-    @Column({ type: 'boolean', name: 'disability', nullable: true })
-    disability: boolean;
+  @Column({ type: 'boolean', name: 'disease', nullable: true })
+  disease: boolean;
 
-    @Column({ name: 'relations', nullable: true })
-    relations: string;
+  @Column({ type: 'boolean', name: 'disability', nullable: true })
+  disability: boolean;
 
-    @Column({ name: 'state_civil', nullable: true })
-    stateCivil: string;
+  @Column({ name: 'state_civil', nullable: true })
+  stateCivil: string;
 
-    @Column({ name: 'profession', nullable: true })
-    profession: string;
+  @Column({ name: 'ocupation', nullable: true })
+  ocupation: string;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+  @Column({ name: 'parent', nullable: true })
+  parent: string;
+
+  @Column({ type: 'simple-enum', name: 'state', enum: State })
+  state: State;
+
+  @Column({ type: "array", nullable: true })
+  enrollments: any;
+
+  typeId: string;
+
+  gender: string;
+
+  neighborhood: string;
+
+  city: string;
+
+  birthplace: string;
+
+  nacionality: string;
+
+  cityExp: string;
+
+  rh: string;
+
+  eps: string;
+
+  relation: string;
+
+  @Column({ type: "array", nullable: true })
+  courses: any;
+
+  // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

@@ -9,50 +9,50 @@ const relationshipNames = [];
 
 @Injectable()
 export class ReferenceService {
-    logger = new Logger('ReferenceService');
+  logger = new Logger('ReferenceService');
 
-    constructor(@InjectRepository(ReferenceRepository) private referenceRepository: ReferenceRepository) {}
+  constructor(@InjectRepository(ReferenceRepository) private referenceRepository: ReferenceRepository) {}
 
-    async findById(id: string): Promise<ReferenceDTO | undefined> {
-        const options = { relations: relationshipNames };
-        const result = await this.referenceRepository.findOne(id, options);
-        return ReferenceMapper.fromEntityToDTO(result);
+  async findById(id: string): Promise<ReferenceDTO | undefined> {
+    const options = { relations: relationshipNames };
+    const result = await this.referenceRepository.findOne(id, options);
+    return ReferenceMapper.fromEntityToDTO(result);
+  }
+
+  async findByfields(options: FindOneOptions<ReferenceDTO>): Promise<ReferenceDTO | undefined> {
+    const result = await this.referenceRepository.findOne(options);
+    return ReferenceMapper.fromEntityToDTO(result);
+  }
+
+  async findAndCount(options: FindManyOptions<ReferenceDTO>): Promise<[ReferenceDTO[], number]> {
+    options.relations = relationshipNames;
+    const resultList = await this.referenceRepository.findAndCount(options);
+    const referenceDTO: ReferenceDTO[] = [];
+    if (resultList && resultList[0]) {
+      resultList[0].forEach(reference => referenceDTO.push(ReferenceMapper.fromEntityToDTO(reference)));
+      resultList[0] = referenceDTO;
     }
+    return resultList;
+  }
 
-    async findByfields(options: FindOneOptions<ReferenceDTO>): Promise<ReferenceDTO | undefined> {
-        const result = await this.referenceRepository.findOne(options);
-        return ReferenceMapper.fromEntityToDTO(result);
-    }
+  async save(referenceDTO: ReferenceDTO): Promise<ReferenceDTO | undefined> {
+    const entity = ReferenceMapper.fromDTOtoEntity(referenceDTO);
+    const result = await this.referenceRepository.save(entity);
+    return ReferenceMapper.fromEntityToDTO(result);
+  }
 
-    async findAndCount(options: FindManyOptions<ReferenceDTO>): Promise<[ReferenceDTO[], number]> {
-        options.relations = relationshipNames;
-        const resultList = await this.referenceRepository.findAndCount(options);
-        const referenceDTO: ReferenceDTO[] = [];
-        if (resultList && resultList[0]) {
-            resultList[0].forEach(reference => referenceDTO.push(ReferenceMapper.fromEntityToDTO(reference)));
-            resultList[0] = referenceDTO;
-        }
-        return resultList;
-    }
+  async update(referenceDTO: ReferenceDTO): Promise<ReferenceDTO | undefined> {
+    const entity = ReferenceMapper.fromDTOtoEntity(referenceDTO);
+    const result = await this.referenceRepository.save(entity);
+    return ReferenceMapper.fromEntityToDTO(result);
+  }
 
-    async save(referenceDTO: ReferenceDTO): Promise<ReferenceDTO | undefined> {
-        const entity = ReferenceMapper.fromDTOtoEntity(referenceDTO);
-        const result = await this.referenceRepository.save(entity);
-        return ReferenceMapper.fromEntityToDTO(result);
+  async deleteById(id: string): Promise<void | undefined> {
+    await this.referenceRepository.delete(id);
+    const entityFind = await this.findById(id);
+    if (entityFind) {
+      throw new HttpException('Error, entity not deleted!', HttpStatus.NOT_FOUND);
     }
-
-    async update(referenceDTO: ReferenceDTO): Promise<ReferenceDTO | undefined> {
-        const entity = ReferenceMapper.fromDTOtoEntity(referenceDTO);
-        const result = await this.referenceRepository.save(entity);
-        return ReferenceMapper.fromEntityToDTO(result);
-    }
-
-    async deleteById(id: string): Promise<void | undefined> {
-        await this.referenceRepository.delete(id);
-        const entityFind = await this.findById(id);
-        if (entityFind) {
-            throw new HttpException('Error, entity not deleted!', HttpStatus.NOT_FOUND);
-        }
-        return;
-    }
+    return;
+  }
 }

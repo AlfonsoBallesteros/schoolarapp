@@ -1,0 +1,92 @@
+{
+    "name": "Enrollment",
+    "fields": [
+        {
+            "fieldName": "peaceSafeFile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "academicFile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "docStudentFile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "docDadFile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "docMomFile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "docTutorFile",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "academicPeriod",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "year",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "obs",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "workingDay",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "enrollModality",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "legacy",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "state",
+            "fieldType": "State",
+            "fieldValues": "NUEVO,ANTIGUO,PENDIENTE,ACEPTADO,ACTIVO,INACTIVO"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "type",
+            "otherEntityRelationshipName": "enrollment",
+            "relationshipName": "workShop",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "type",
+            "otherEntityRelationshipName": "enrollment",
+            "relationshipName": "gradeProx",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "person",
+            "otherEntityRelationshipName": "enrollment",
+            "relationshipName": "student",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20210302021100",
+    "entityTableName": "enrollment",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

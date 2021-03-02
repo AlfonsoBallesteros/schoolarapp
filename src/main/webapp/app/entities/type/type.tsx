@@ -72,8 +72,14 @@ export const Type = (props: ITypeProps) => {
                 <th className="hand" onClick={sort('value')}>
                   Value <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={sort('parent')}>
+                  Parent <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('state')}>
                   State <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Reference <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -89,7 +95,9 @@ export const Type = (props: ITypeProps) => {
                   <td>{type.code}</td>
                   <td>{type.name}</td>
                   <td>{type.value}</td>
+                  <td>{type.parent}</td>
                   <td>{type.state}</td>
+                  <td>{type.referenceId ? <Link to={`reference/${type.referenceId}`}>{type.referenceId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${type.id}`} color="info" size="sm">

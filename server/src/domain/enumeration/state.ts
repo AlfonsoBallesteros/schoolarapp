@@ -2,9 +2,10 @@
  * The State enumeration.
  */
 export enum State {
-    ACTIVO = 'ACTIVO',
-    PENDIENTE = 'PENDIENTE',
-    PUBLICADO = 'PUBLICADO',
-    INACTIVO = 'INACTIVO',
-    BORRADO = 'BORRADO'
+  NUEVO = 'NUEVO',
+  ANTIGUO = 'ANTIGUO',
+  PENDIENTE = 'PENDIENTE',
+  ACEPTADO = 'ACEPTADO',
+  ACTIVO = 'ACTIVO',
+  INACTIVO = 'INACTIVO'
 }

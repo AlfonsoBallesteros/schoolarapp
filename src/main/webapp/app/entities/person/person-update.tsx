@@ -7,6 +7,10 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipste
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { ICourse } from 'app/shared/model/course.model';
+import { getEntities as getCourses } from 'app/entities/course/course.reducer';
+import { IType } from 'app/shared/model/type.model';
+import { getEntities as getTypes } from 'app/entities/type/type.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './person.reducer';
 import { IPerson } from 'app/shared/model/person.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,9 +19,21 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface IPersonUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const PersonUpdate = (props: IPersonUpdateProps) => {
+  const [idscourses, setIdscourses] = useState([]);
+  const [courseId, setCourseId] = useState('0');
+  const [typeIdId, setTypeIdId] = useState('0');
+  const [genderId, setGenderId] = useState('0');
+  const [neighborhoodId, setNeighborhoodId] = useState('0');
+  const [cityId, setCityId] = useState('0');
+  const [birthplaceId, setBirthplaceId] = useState('0');
+  const [nacionalityId, setNacionalityId] = useState('0');
+  const [cityExpId, setCityExpId] = useState('0');
+  const [rhId, setRhId] = useState('0');
+  const [epsId, setEpsId] = useState('0');
+  const [relationId, setRelationId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { personEntity, loading, updating } = props;
+  const { personEntity, courses, types, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/person' + props.location.search);
@@ -29,6 +45,9 @@ export const PersonUpdate = (props: IPersonUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
+
+    props.getCourses();
+    props.getTypes();
   }, []);
 
   useEffect(() => {
@@ -41,7 +60,8 @@ export const PersonUpdate = (props: IPersonUpdateProps) => {
     if (errors.length === 0) {
       const entity = {
         ...personEntity,
-        ...values
+        ...values,
+        courses: mapIdList(values.courses)
       };
 
       if (isNew) {
@@ -84,10 +104,16 @@ export const PersonUpdate = (props: IPersonUpdateProps) => {
                 <AvField id="person-surname" type="text" name="surname" />
               </AvGroup>
               <AvGroup>
-                <Label id="birthdateLabel" for="person-birthdate">
-                  Birthdate
+                <Label id="documentIdLabel" for="person-documentId">
+                  Document Id
                 </Label>
-                <AvField id="person-birthdate" type="text" name="birthdate" />
+                <AvField id="person-documentId" type="text" name="documentId" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="documentExpDateLabel" for="person-documentExpDate">
+                  Document Exp Date
+                </Label>
+                <AvField id="person-documentExpDate" type="date" className="form-control" name="documentExpDate" />
               </AvGroup>
               <AvGroup>
                 <Label id="phoneNumberLabel" for="person-phoneNumber">
@@ -96,22 +122,16 @@ export const PersonUpdate = (props: IPersonUpdateProps) => {
                 <AvField id="person-phoneNumber" type="text" name="phoneNumber" />
               </AvGroup>
               <AvGroup>
-                <Label id="districtLabel" for="person-district">
-                  District
+                <Label id="telephonNumberLabel" for="person-telephonNumber">
+                  Telephon Number
                 </Label>
-                <AvField id="person-district" type="text" name="district" />
+                <AvField id="person-telephonNumber" type="text" name="telephonNumber" />
               </AvGroup>
               <AvGroup>
-                <Label id="neighborhoodLabel" for="person-neighborhood">
-                  Neighborhood
+                <Label id="birthdateLabel" for="person-birthdate">
+                  Birthdate
                 </Label>
-                <AvField id="person-neighborhood" type="text" name="neighborhood" />
-              </AvGroup>
-              <AvGroup>
-                <Label id="stratusLabel" for="person-stratus">
-                  Stratus
-                </Label>
-                <AvField id="person-stratus" type="text" name="stratus" />
+                <AvField id="person-birthdate" type="date" className="form-control" name="birthdate" />
               </AvGroup>
               <AvGroup>
                 <Label id="addressLabel" for="person-address">
@@ -120,10 +140,16 @@ export const PersonUpdate = (props: IPersonUpdateProps) => {
                 <AvField id="person-address" type="text" name="address" />
               </AvGroup>
               <AvGroup>
-                <Label id="rhLabel" for="person-rh">
-                  Rh
+                <Label id="districtLabel" for="person-district">
+                  District
                 </Label>
-                <AvField id="person-rh" type="text" name="rh" />
+                <AvField id="person-district" type="text" name="district" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="stratusLabel" for="person-stratus">
+                  Stratus
+                </Label>
+                <AvField id="person-stratus" type="text" name="stratus" />
               </AvGroup>
               <AvGroup check>
                 <Label id="diseaseLabel">
@@ -138,22 +164,191 @@ export const PersonUpdate = (props: IPersonUpdateProps) => {
                 </Label>
               </AvGroup>
               <AvGroup>
-                <Label id="relationsLabel" for="person-relations">
-                  Relations
-                </Label>
-                <AvField id="person-relations" type="text" name="relations" />
-              </AvGroup>
-              <AvGroup>
                 <Label id="stateCivilLabel" for="person-stateCivil">
                   State Civil
                 </Label>
                 <AvField id="person-stateCivil" type="text" name="stateCivil" />
               </AvGroup>
               <AvGroup>
-                <Label id="professionLabel" for="person-profession">
-                  Profession
+                <Label id="ocupationLabel" for="person-ocupation">
+                  Ocupation
                 </Label>
-                <AvField id="person-profession" type="text" name="profession" />
+                <AvField id="person-ocupation" type="text" name="ocupation" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="parentLabel" for="person-parent">
+                  Parent
+                </Label>
+                <AvField id="person-parent" type="text" name="parent" />
+              </AvGroup>
+              <AvGroup>
+                <Label id="stateLabel" for="person-state">
+                  State
+                </Label>
+                <AvInput
+                  id="person-state"
+                  type="select"
+                  className="form-control"
+                  name="state"
+                  value={(!isNew && personEntity.state) || 'NUEVO'}
+                >
+                  <option value="NUEVO">NUEVO</option>
+                  <option value="ANTIGUO">ANTIGUO</option>
+                  <option value="PENDIENTE">PENDIENTE</option>
+                  <option value="ACEPTADO">ACEPTADO</option>
+                  <option value="ACTIVO">ACTIVO</option>
+                  <option value="INACTIVO">INACTIVO</option>
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-typeId">Type Id</Label>
+                <AvInput id="person-typeId" type="select" className="form-control" name="typeIdId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-gender">Gender</Label>
+                <AvInput id="person-gender" type="select" className="form-control" name="genderId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-neighborhood">Neighborhood</Label>
+                <AvInput id="person-neighborhood" type="select" className="form-control" name="neighborhoodId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-city">City</Label>
+                <AvInput id="person-city" type="select" className="form-control" name="cityId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-birthplace">Birthplace</Label>
+                <AvInput id="person-birthplace" type="select" className="form-control" name="birthplaceId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-nacionality">Nacionality</Label>
+                <AvInput id="person-nacionality" type="select" className="form-control" name="nacionalityId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-cityExp">City Exp</Label>
+                <AvInput id="person-cityExp" type="select" className="form-control" name="cityExpId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-rh">Rh</Label>
+                <AvInput id="person-rh" type="select" className="form-control" name="rhId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-eps">Eps</Label>
+                <AvInput id="person-eps" type="select" className="form-control" name="epsId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-relation">Relation</Label>
+                <AvInput id="person-relation" type="select" className="form-control" name="relationId">
+                  <option value="" key="0" />
+                  {types
+                    ? types.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="person-courses">Courses</Label>
+                <AvInput
+                  id="person-courses"
+                  type="select"
+                  multiple
+                  className="form-control"
+                  name="courses"
+                  value={personEntity.courses && personEntity.courses.map(e => e.id)}
+                >
+                  <option value="" key="0" />
+                  {courses
+                    ? courses.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
+                </AvInput>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/person" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
@@ -174,6 +369,8 @@ export const PersonUpdate = (props: IPersonUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  courses: storeState.course.entities,
+  types: storeState.type.entities,
   personEntity: storeState.person.entity,
   loading: storeState.person.loading,
   updating: storeState.person.updating,
@@ -181,6 +378,8 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getCourses,
+  getTypes,
   getEntity,
   updateEntity,
   createEntity,

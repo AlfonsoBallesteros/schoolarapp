@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Col, Row, Table } from 'reactstrap';
-import { ICrudGetAllAction, getSortState, IPaginationBaseState, JhiPagination, JhiItemCount } from 'react-jhipster';
+import { ICrudGetAllAction, TextFormat, getSortState, IPaginationBaseState, JhiPagination, JhiItemCount } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -69,26 +69,29 @@ export const Person = (props: IPersonProps) => {
                 <th className="hand" onClick={sort('surname')}>
                   Surname <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('birthdate')}>
-                  Birthdate <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={sort('documentId')}>
+                  Document Id <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('documentExpDate')}>
+                  Document Exp Date <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={sort('phoneNumber')}>
                   Phone Number <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('district')}>
-                  District <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={sort('telephonNumber')}>
+                  Telephon Number <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('neighborhood')}>
-                  Neighborhood <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('stratus')}>
-                  Stratus <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={sort('birthdate')}>
+                  Birthdate <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={sort('address')}>
                   Address <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('rh')}>
-                  Rh <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={sort('district')}>
+                  District <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('stratus')}>
+                  Stratus <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={sort('disease')}>
                   Disease <FontAwesomeIcon icon="sort" />
@@ -96,14 +99,47 @@ export const Person = (props: IPersonProps) => {
                 <th className="hand" onClick={sort('disability')}>
                   Disability <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('relations')}>
-                  Relations <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={sort('stateCivil')}>
                   State Civil <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('profession')}>
-                  Profession <FontAwesomeIcon icon="sort" />
+                <th className="hand" onClick={sort('ocupation')}>
+                  Ocupation <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('parent')}>
+                  Parent <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('state')}>
+                  State <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Type Id <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Gender <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Neighborhood <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  City <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Birthplace <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Nacionality <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  City Exp <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Rh <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Eps <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Relation <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -118,18 +154,34 @@ export const Person = (props: IPersonProps) => {
                   </td>
                   <td>{person.name}</td>
                   <td>{person.surname}</td>
-                  <td>{person.birthdate}</td>
+                  <td>{person.documentId}</td>
+                  <td>
+                    <TextFormat type="date" value={person.documentExpDate} format={APP_LOCAL_DATE_FORMAT} />
+                  </td>
                   <td>{person.phoneNumber}</td>
-                  <td>{person.district}</td>
-                  <td>{person.neighborhood}</td>
-                  <td>{person.stratus}</td>
+                  <td>{person.telephonNumber}</td>
+                  <td>
+                    <TextFormat type="date" value={person.birthdate} format={APP_LOCAL_DATE_FORMAT} />
+                  </td>
                   <td>{person.address}</td>
-                  <td>{person.rh}</td>
+                  <td>{person.district}</td>
+                  <td>{person.stratus}</td>
                   <td>{person.disease ? 'true' : 'false'}</td>
                   <td>{person.disability ? 'true' : 'false'}</td>
-                  <td>{person.relations}</td>
                   <td>{person.stateCivil}</td>
-                  <td>{person.profession}</td>
+                  <td>{person.ocupation}</td>
+                  <td>{person.parent}</td>
+                  <td>{person.state}</td>
+                  <td>{person.typeIdId ? <Link to={`type/${person.typeIdId}`}>{person.typeIdId}</Link> : ''}</td>
+                  <td>{person.genderId ? <Link to={`type/${person.genderId}`}>{person.genderId}</Link> : ''}</td>
+                  <td>{person.neighborhoodId ? <Link to={`type/${person.neighborhoodId}`}>{person.neighborhoodId}</Link> : ''}</td>
+                  <td>{person.cityId ? <Link to={`type/${person.cityId}`}>{person.cityId}</Link> : ''}</td>
+                  <td>{person.birthplaceId ? <Link to={`type/${person.birthplaceId}`}>{person.birthplaceId}</Link> : ''}</td>
+                  <td>{person.nacionalityId ? <Link to={`type/${person.nacionalityId}`}>{person.nacionalityId}</Link> : ''}</td>
+                  <td>{person.cityExpId ? <Link to={`type/${person.cityExpId}`}>{person.cityExpId}</Link> : ''}</td>
+                  <td>{person.rhId ? <Link to={`type/${person.rhId}`}>{person.rhId}</Link> : ''}</td>
+                  <td>{person.epsId ? <Link to={`type/${person.epsId}`}>{person.epsId}</Link> : ''}</td>
+                  <td>{person.relationId ? <Link to={`type/${person.relationId}`}>{person.relationId}</Link> : ''}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${person.id}`} color="info" size="sm">

@@ -1,0 +1,97 @@
+enum State{
+    NUEVO,
+    ANTIGUO,
+    PENDIENTE,
+    ACEPTADO,
+    ACTIVO,
+    INACTIVO
+}
+
+entity Person {
+    name String
+    surname String
+    documentId String
+    documentExpDate LocalDate
+    phoneNumber String
+    telephonNumber String
+    birthdate LocalDate
+    address String
+    district String
+    stratus String
+    disease Boolean
+    disability Boolean
+    stateCivil String
+    ocupation String
+    parent String
+    state State 
+}
+
+entity Enrollment{
+    peaceSafeFile String
+    academicFile String
+    docStudentFile String
+    docDadFile String
+    docMomFile String
+    docTutorFile String
+    academicPeriod String
+    year String
+    obs String
+    workingDay String
+    enrollModality String
+    legacy Boolean
+    state State
+}
+
+entity Course{
+	name String
+    hour String
+    grade String
+}
+
+entity Type{
+    code String
+    name String
+    value String
+    parent String
+    state State
+}
+
+entity Reference{
+    name String
+    value String
+    state State
+}
+
+
+relationship ManyToMany {
+	Person{courses} to Course{student}
+}
+
+relationship OneToMany {
+    Reference to Type{reference}
+    Person to Enrollment{Student}
+    Person to Course{teacher}
+}
+
+relationship ManyToOne {
+    Person{typeId} to Type
+    Person{gender} to Type
+    Person{neighborhood} to Type
+    Person{city} to Type
+    Person{birthplace} to Type
+    Person{nacionality} to Type
+    Person{cityExp} to Type
+    Person{rh} to Type
+    Person{eps} to Type
+    Person{relation} to Type
+    
+    Enrollment{workShop} to Type
+    Enrollment{gradeProx} to Type
+}
+
+
+paginate * with pagination
+service * with serviceClass
+dto * with mapstruct
+filter *
+

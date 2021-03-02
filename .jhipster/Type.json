@@ -14,12 +14,24 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "parent",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "state",
             "fieldType": "State",
-            "fieldValues": "ACTIVO,PENDIENTE,PUBLICADO,INACTIVO,BORRADO"
+            "fieldValues": "NUEVO,ANTIGUO,PENDIENTE,ACEPTADO,ACTIVO,INACTIVO"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "reference",
+            "otherEntityRelationshipName": "type",
+            "relationshipName": "reference",
+            "otherEntityField": "id"
+        }
+    ],
     "changelogDate": "20210227002400",
     "entityTableName": "type",
     "dto": "mapstruct",

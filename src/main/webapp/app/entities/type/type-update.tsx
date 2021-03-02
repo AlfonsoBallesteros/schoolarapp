@@ -7,6 +7,8 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipste
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 
+import { IReference } from 'app/shared/model/reference.model';
+import { getEntities as getReferences } from 'app/entities/reference/reference.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './type.reducer';
 import { IType } from 'app/shared/model/type.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -15,9 +17,10 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 export interface ITypeUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const TypeUpdate = (props: ITypeUpdateProps) => {
+  const [referenceId, setReferenceId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { typeEntity, loading, updating } = props;
+  const { typeEntity, references, loading, updating } = props;
 
   const handleClose = () => {
     props.history.push('/type' + props.location.search);
@@ -29,6 +32,8 @@ export const TypeUpdate = (props: ITypeUpdateProps) => {
     } else {
       props.getEntity(props.match.params.id);
     }
+
+    props.getReferences();
   }, []);
 
   useEffect(() => {
@@ -90,6 +95,12 @@ export const TypeUpdate = (props: ITypeUpdateProps) => {
                 <AvField id="type-value" type="text" name="value" />
               </AvGroup>
               <AvGroup>
+                <Label id="parentLabel" for="type-parent">
+                  Parent
+                </Label>
+                <AvField id="type-parent" type="text" name="parent" />
+              </AvGroup>
+              <AvGroup>
                 <Label id="stateLabel" for="type-state">
                   State
                 </Label>
@@ -98,13 +109,27 @@ export const TypeUpdate = (props: ITypeUpdateProps) => {
                   type="select"
                   className="form-control"
                   name="state"
-                  value={(!isNew && typeEntity.state) || 'ACTIVO'}
+                  value={(!isNew && typeEntity.state) || 'NUEVO'}
                 >
-                  <option value="ACTIVO">ACTIVO</option>
+                  <option value="NUEVO">NUEVO</option>
+                  <option value="ANTIGUO">ANTIGUO</option>
                   <option value="PENDIENTE">PENDIENTE</option>
-                  <option value="PUBLICADO">PUBLICADO</option>
+                  <option value="ACEPTADO">ACEPTADO</option>
+                  <option value="ACTIVO">ACTIVO</option>
                   <option value="INACTIVO">INACTIVO</option>
-                  <option value="BORRADO">BORRADO</option>
+                </AvInput>
+              </AvGroup>
+              <AvGroup>
+                <Label for="type-reference">Reference</Label>
+                <AvInput id="type-reference" type="select" className="form-control" name="referenceId">
+                  <option value="" key="0" />
+                  {references
+                    ? references.map(otherEntity => (
+                        <option value={otherEntity.id} key={otherEntity.id}>
+                          {otherEntity.id}
+                        </option>
+                      ))
+                    : null}
                 </AvInput>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/type" replace color="info">
@@ -126,6 +151,7 @@ export const TypeUpdate = (props: ITypeUpdateProps) => {
 };
 
 const mapStateToProps = (storeState: IRootState) => ({
+  references: storeState.reference.entities,
   typeEntity: storeState.type.entity,
   loading: storeState.type.loading,
   updating: storeState.type.updating,
@@ -133,6 +159,7 @@ const mapStateToProps = (storeState: IRootState) => ({
 });
 
 const mapDispatchToProps = {
+  getReferences,
   getEntity,
   updateEntity,
   createEntity,

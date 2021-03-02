@@ -23,6 +23,14 @@ import type, {
 import reference, {
   ReferenceState
 } from 'app/entities/reference/reference.reducer';
+// prettier-ignore
+import enrollment, {
+  EnrollmentState
+} from 'app/entities/enrollment/enrollment.reducer';
+// prettier-ignore
+import course, {
+  CourseState
+} from 'app/entities/course/course.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -38,6 +46,8 @@ export interface IRootState {
   readonly person: PersonState;
   readonly type: TypeState;
   readonly reference: ReferenceState;
+  readonly enrollment: EnrollmentState;
+  readonly course: CourseState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -55,6 +65,8 @@ const rootReducer = combineReducers<IRootState>({
   person,
   type,
   reference,
+  enrollment,
+  course,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });

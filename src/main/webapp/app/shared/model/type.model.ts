@@ -5,7 +5,9 @@ export interface IType {
   code?: string;
   name?: string;
   value?: string;
+  parent?: string;
   state?: State;
+  referenceId?: string;
 }
 
 export const defaultValue: Readonly<IType> = {};

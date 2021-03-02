@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { ICrudGetAction } from 'react-jhipster';
+import { ICrudGetAction, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IRootState } from 'app/shared/reducers';
@@ -34,33 +34,41 @@ export const PersonDetail = (props: IPersonDetailProps) => {
           </dt>
           <dd>{personEntity.surname}</dd>
           <dt>
-            <span id="birthdate">Birthdate</span>
+            <span id="documentId">Document Id</span>
           </dt>
-          <dd>{personEntity.birthdate}</dd>
+          <dd>{personEntity.documentId}</dd>
+          <dt>
+            <span id="documentExpDate">Document Exp Date</span>
+          </dt>
+          <dd>
+            <TextFormat value={personEntity.documentExpDate} type="date" format={APP_LOCAL_DATE_FORMAT} />
+          </dd>
           <dt>
             <span id="phoneNumber">Phone Number</span>
           </dt>
           <dd>{personEntity.phoneNumber}</dd>
           <dt>
-            <span id="district">District</span>
+            <span id="telephonNumber">Telephon Number</span>
           </dt>
-          <dd>{personEntity.district}</dd>
+          <dd>{personEntity.telephonNumber}</dd>
           <dt>
-            <span id="neighborhood">Neighborhood</span>
+            <span id="birthdate">Birthdate</span>
           </dt>
-          <dd>{personEntity.neighborhood}</dd>
-          <dt>
-            <span id="stratus">Stratus</span>
-          </dt>
-          <dd>{personEntity.stratus}</dd>
+          <dd>
+            <TextFormat value={personEntity.birthdate} type="date" format={APP_LOCAL_DATE_FORMAT} />
+          </dd>
           <dt>
             <span id="address">Address</span>
           </dt>
           <dd>{personEntity.address}</dd>
           <dt>
-            <span id="rh">Rh</span>
+            <span id="district">District</span>
           </dt>
-          <dd>{personEntity.rh}</dd>
+          <dd>{personEntity.district}</dd>
+          <dt>
+            <span id="stratus">Stratus</span>
+          </dt>
+          <dd>{personEntity.stratus}</dd>
           <dt>
             <span id="disease">Disease</span>
           </dt>
@@ -70,17 +78,52 @@ export const PersonDetail = (props: IPersonDetailProps) => {
           </dt>
           <dd>{personEntity.disability ? 'true' : 'false'}</dd>
           <dt>
-            <span id="relations">Relations</span>
-          </dt>
-          <dd>{personEntity.relations}</dd>
-          <dt>
             <span id="stateCivil">State Civil</span>
           </dt>
           <dd>{personEntity.stateCivil}</dd>
           <dt>
-            <span id="profession">Profession</span>
+            <span id="ocupation">Ocupation</span>
           </dt>
-          <dd>{personEntity.profession}</dd>
+          <dd>{personEntity.ocupation}</dd>
+          <dt>
+            <span id="parent">Parent</span>
+          </dt>
+          <dd>{personEntity.parent}</dd>
+          <dt>
+            <span id="state">State</span>
+          </dt>
+          <dd>{personEntity.state}</dd>
+          <dt>Type Id</dt>
+          <dd>{personEntity.typeIdId ? personEntity.typeIdId : ''}</dd>
+          <dt>Gender</dt>
+          <dd>{personEntity.genderId ? personEntity.genderId : ''}</dd>
+          <dt>Neighborhood</dt>
+          <dd>{personEntity.neighborhoodId ? personEntity.neighborhoodId : ''}</dd>
+          <dt>City</dt>
+          <dd>{personEntity.cityId ? personEntity.cityId : ''}</dd>
+          <dt>Birthplace</dt>
+          <dd>{personEntity.birthplaceId ? personEntity.birthplaceId : ''}</dd>
+          <dt>Nacionality</dt>
+          <dd>{personEntity.nacionalityId ? personEntity.nacionalityId : ''}</dd>
+          <dt>City Exp</dt>
+          <dd>{personEntity.cityExpId ? personEntity.cityExpId : ''}</dd>
+          <dt>Rh</dt>
+          <dd>{personEntity.rhId ? personEntity.rhId : ''}</dd>
+          <dt>Eps</dt>
+          <dd>{personEntity.epsId ? personEntity.epsId : ''}</dd>
+          <dt>Relation</dt>
+          <dd>{personEntity.relationId ? personEntity.relationId : ''}</dd>
+          <dt>Courses</dt>
+          <dd>
+            {personEntity.courses
+              ? personEntity.courses.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.id}</a>
+                    {i === personEntity.courses.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
         </dl>
         <Button tag={Link} to="/person" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

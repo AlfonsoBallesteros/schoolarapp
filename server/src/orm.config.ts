@@ -13,13 +13,10 @@ async function ormConfig(): Promise<TypeOrmModuleOptions> {
     };
 
     let ormconfig: TypeOrmModuleOptions = {
-        name: 'default',
         type: 'mongodb',
+        database: 'schoolarapp',
         host: 'localhost',
-        port: await mongod.getPort(),
-        database: await mongod.getDbName(),
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
+        port: 27017,
         logging: true,
         synchronize: true,
         entities: commonConf.ENTITIES,

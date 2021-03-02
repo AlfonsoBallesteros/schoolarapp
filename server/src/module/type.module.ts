@@ -5,9 +5,9 @@ import { TypeRepository } from '../repository/type.repository';
 import { TypeService } from '../service/type.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([TypeRepository])],
-    controllers: [TypeController],
-    providers: [TypeService],
-    exports: [TypeService],
+  imports: [TypeOrmModule.forFeature([TypeRepository])],
+  controllers: [TypeController],
+  providers: [TypeService],
+  exports: [TypeService]
 })
 export class TypeModule {}

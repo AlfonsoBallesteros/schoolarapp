@@ -7,7 +7,9 @@ export default class TypeUpdatePage {
   codeInput: ElementFinder = element(by.css('input#type-code'));
   nameInput: ElementFinder = element(by.css('input#type-name'));
   valueInput: ElementFinder = element(by.css('input#type-value'));
+  parentInput: ElementFinder = element(by.css('input#type-parent'));
   stateSelect: ElementFinder = element(by.css('select#type-state'));
+  referenceSelect: ElementFinder = element(by.css('select#type-reference'));
 
   getPageTitle() {
     return this.pageTitle;
@@ -37,6 +39,14 @@ export default class TypeUpdatePage {
     return this.valueInput.getAttribute('value');
   }
 
+  async setParentInput(parent) {
+    await this.parentInput.sendKeys(parent);
+  }
+
+  async getParentInput() {
+    return this.parentInput.getAttribute('value');
+  }
+
   async setStateSelect(state) {
     await this.stateSelect.sendKeys(state);
   }
@@ -51,6 +61,25 @@ export default class TypeUpdatePage {
       .last()
       .click();
   }
+  async referenceSelectLastOption() {
+    await this.referenceSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async referenceSelectOption(option) {
+    await this.referenceSelect.sendKeys(option);
+  }
+
+  getReferenceSelect() {
+    return this.referenceSelect;
+  }
+
+  async getReferenceSelectedOption() {
+    return this.referenceSelect.element(by.css('option:checked')).getText();
+  }
+
   async save() {
     await this.saveButton.click();
   }

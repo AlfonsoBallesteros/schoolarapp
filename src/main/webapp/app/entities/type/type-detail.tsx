@@ -38,9 +38,15 @@ export const TypeDetail = (props: ITypeDetailProps) => {
           </dt>
           <dd>{typeEntity.value}</dd>
           <dt>
+            <span id="parent">Parent</span>
+          </dt>
+          <dd>{typeEntity.parent}</dd>
+          <dt>
             <span id="state">State</span>
           </dt>
           <dd>{typeEntity.state}</dd>
+          <dt>Reference</dt>
+          <dd>{typeEntity.referenceId ? typeEntity.referenceId : ''}</dd>
         </dl>
         <Button tag={Link} to="/type" replace color="info">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

@@ -1,19 +1,38 @@
+import { Moment } from 'moment';
+import { IEnrollment } from 'app/shared/model/enrollment.model';
+import { ICourse } from 'app/shared/model/course.model';
+import { State } from 'app/shared/model/enumerations/state.model';
+
 export interface IPerson {
   id?: string;
   name?: string;
   surname?: string;
-  birthdate?: string;
+  documentId?: string;
+  documentExpDate?: Moment;
   phoneNumber?: string;
-  district?: string;
-  neighborhood?: string;
-  stratus?: string;
+  telephonNumber?: string;
+  birthdate?: Moment;
   address?: string;
-  rh?: string;
+  district?: string;
+  stratus?: string;
   disease?: boolean;
   disability?: boolean;
-  relations?: string;
   stateCivil?: string;
-  profession?: string;
+  ocupation?: string;
+  parent?: string;
+  state?: State;
+  enrollments?: IEnrollment[];
+  typeIdId?: string;
+  genderId?: string;
+  neighborhoodId?: string;
+  cityId?: string;
+  birthplaceId?: string;
+  nacionalityId?: string;
+  cityExpId?: string;
+  rhId?: string;
+  epsId?: string;
+  relationId?: string;
+  courses?: ICourse[];
 }
 
 export const defaultValue: Readonly<IPerson> = {

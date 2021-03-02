@@ -12,10 +12,17 @@
         {
             "fieldName": "state",
             "fieldType": "State",
-            "fieldValues": "ACTIVO,PENDIENTE,PUBLICADO,INACTIVO,BORRADO"
+            "fieldValues": "NUEVO,ANTIGUO,PENDIENTE,ACEPTADO,ACTIVO,INACTIVO"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "type",
+            "otherEntityRelationshipName": "reference",
+            "relationshipName": "type"
+        }
+    ],
     "changelogDate": "20210227002500",
     "entityTableName": "reference",
     "dto": "mapstruct",

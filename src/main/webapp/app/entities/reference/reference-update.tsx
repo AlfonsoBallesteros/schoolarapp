@@ -92,13 +92,14 @@ export const ReferenceUpdate = (props: IReferenceUpdateProps) => {
                   type="select"
                   className="form-control"
                   name="state"
-                  value={(!isNew && referenceEntity.state) || 'ACTIVO'}
+                  value={(!isNew && referenceEntity.state) || 'NUEVO'}
                 >
-                  <option value="ACTIVO">ACTIVO</option>
+                  <option value="NUEVO">NUEVO</option>
+                  <option value="ANTIGUO">ANTIGUO</option>
                   <option value="PENDIENTE">PENDIENTE</option>
-                  <option value="PUBLICADO">PUBLICADO</option>
+                  <option value="ACEPTADO">ACEPTADO</option>
+                  <option value="ACTIVO">ACTIVO</option>
                   <option value="INACTIVO">INACTIVO</option>
-                  <option value="BORRADO">BORRADO</option>
                 </AvInput>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/reference" replace color="info">

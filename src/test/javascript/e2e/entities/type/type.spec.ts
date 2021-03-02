@@ -65,7 +65,10 @@ describe('Type e2e test', () => {
     expect(await typeUpdatePage.getNameInput()).to.match(/name/);
     await typeUpdatePage.setValueInput('value');
     expect(await typeUpdatePage.getValueInput()).to.match(/value/);
+    await typeUpdatePage.setParentInput('parent');
+    expect(await typeUpdatePage.getParentInput()).to.match(/parent/);
     await typeUpdatePage.stateSelectLastOption();
+    await typeUpdatePage.referenceSelectLastOption();
     await waitUntilDisplayed(typeUpdatePage.saveButton);
     await typeUpdatePage.save();
     await waitUntilHidden(typeUpdatePage.saveButton);

@@ -1,9 +1,8 @@
 import { Authority } from './authority.entity';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, ObjectID } from 'typeorm';
 import { BaseEntity } from './base/base.entity';
 import { config } from '../config';
 import { EncryptionTransformer } from 'typeorm-encrypted';
-import { ObjectID } from 'mongodb';
 
 @Entity('user')
 export class User extends BaseEntity {
@@ -41,7 +40,6 @@ export class User extends BaseEntity {
     resetKey?: string;
     @Column({ nullable: true })
     resetDate?: Date;
-
     @Column()
-    person: ObjectID
+    person: string
 }

@@ -9,9 +9,6 @@ import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 
 @Controller('api/types')
-@UseGuards(AuthGuard, RolesGuard)
-@UseInterceptors(LoggingInterceptor)
-@ApiBearerAuth()
 @ApiUseTags('types')
 export class TypeController {
   logger = new Logger('TypeController');
@@ -48,7 +45,6 @@ export class TypeController {
   }
 
   @PostMethod('/')
-  @Roles(RoleType.ADMIN)
   @ApiOperation({ title: 'Create type' })
   @ApiResponse({
     status: 201,

@@ -2,8 +2,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { BaseDTO } from './base.dto';
 
-import { TypeDTO } from './type.dto';
-import { PersonDTO } from './person.dto';
 import { State } from '../../domain/enumeration/state';
 
 /**

@@ -94,7 +94,7 @@ export class Person extends BaseEntity {
   relation: string;
 
   @Column({ type: "array", nullable: true })
-  courses: Course[];
+  courses: any;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

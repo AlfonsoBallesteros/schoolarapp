@@ -20,8 +20,8 @@ export class PersonDTO extends BaseDTO {
   @ApiModelProperty({ description: 'documentId field', required: false })
   documentId: string;
 
-  @ApiModelProperty({ description: 'documentExpDate field', required: false })
-  documentExpDate: any;
+  @ApiModelProperty({type: Date, description: 'documentExpDate field', required: false })
+  documentExpDate: Date;
 
   @ApiModelProperty({ description: 'phoneNumber field', required: false })
   phoneNumber: string;
@@ -29,8 +29,8 @@ export class PersonDTO extends BaseDTO {
   @ApiModelProperty({ description: 'telephonNumber field', required: false })
   telephonNumber: string;
 
-  @ApiModelProperty({ description: 'birthdate field', required: false })
-  birthdate: any;
+  @ApiModelProperty({type: Date, description: 'birthdate field', required: false })
+  birthdate: Date;
 
   @ApiModelProperty({ description: 'address field', required: false })
   address: string;
@@ -59,11 +59,11 @@ export class PersonDTO extends BaseDTO {
   @ApiModelProperty({ enum: State, description: 'state enum field', required: false })
   state: State;
 
-  @ApiModelProperty({ isArray: true, required: false })
+  @ApiModelProperty({isArray: true, required: false })
   enrollments: any;
 
-  @ApiModelProperty({type: CourseDTO, isArray: true, required: false})
-  courses: CourseDTO[];
+  @ApiModelProperty({ isArray: true, required: false})
+  courses: any;
 
   @ApiModelProperty({ description: 'typeId relationship', required: false })
   typeId: string;

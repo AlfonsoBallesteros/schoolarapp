@@ -1,7 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { IsString, IsEmail } from 'class-validator';
 import { BaseDTO } from './base.dto';
-import { ObjectID } from 'mongodb';
 /**
  * An User DTO object.
  */
@@ -46,6 +45,6 @@ export class UserDTO extends BaseDTO {
 
     resetDate?: Date;
 
-    @ApiModelProperty({ description: 'ID Person', required: true })
-    person: ObjectID;
+    @ApiModelProperty({ description: 'person relationship', required: true })
+    person: string;
 }

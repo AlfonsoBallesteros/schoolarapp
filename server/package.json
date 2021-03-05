@@ -29,6 +29,7 @@
     "test:e2e": "jest --silent --coverage --config ./e2e/jest.e2e.config.json"
   },
   "dependencies": {
+    "@google-cloud/storage": "^5.8.0",
     "@nestjs/common": "^7.6.13",
     "@nestjs/core": "7.5.1",
     "@nestjs/jwt": "7.2.0",
@@ -42,6 +43,7 @@
     "cloud-config-client": "1.4.2",
     "dotenv": "8.2.0",
     "eureka-js-client": "4.5.0",
+    "express-fileupload": "^1.2.1",
     "js-yaml": "3.14.0",
     "mongodb": "^3.6.4",
     "mongodb-memory-server": "6.9.2",
@@ -52,7 +54,8 @@
     "shelljs": "0.8.4",
     "swagger-ui-express": "4.0.7",
     "typeorm": "^0.2.31",
-    "typeorm-encrypted": "0.5.6"
+    "typeorm-encrypted": "0.5.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@nestjs/testing": "7.5.1",

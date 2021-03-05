@@ -13,7 +13,7 @@ import { AuthService } from '../../service/auth.service';
 export class AccountController {
     logger = new Logger('AccountController');
 
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
     @Post('/register')
     @ApiOperation({ title: 'Register user' })
@@ -25,6 +25,18 @@ export class AccountController {
     async registerAccount(@Req() req: Request, @Body() userDTO: UserDTO): Promise<any> {
         return await this.authService.registerNewUser(userDTO);
     }
+
+    @Post('/upload/:id')
+    @ApiOperation({ title: 'Upload Files' })
+    @ApiResponse({
+        status: 201,
+        description: 'Uploaded files',
+        type: UserDTO,
+    })
+    async uploadFiles(@Req() req: Request): Promise<any> {
+        return await this.authService.uploadFiles(req);
+    }
+
 
     @Get('/activate')
     @ApiBearerAuth()

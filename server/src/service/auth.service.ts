@@ -6,6 +6,7 @@ import { Payload } from '../security/payload.interface';
 import { AuthorityRepository } from '../repository/authority.repository';
 import { UserService } from '../service/user.service';
 import { UserDTO } from './dto/user.dto';
+import { EmailService } from './email.service';
 
 const { v4: uuidv4 } = require('uuid');
 const { Storage } = require('@google-cloud/storage');
@@ -16,7 +17,8 @@ export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
         @InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository,
-        private userService: UserService
+        private userService: UserService,
+        private emailService: EmailService
     ) { }
 
     async login(userLogin: UserLoginDTO): Promise<any> {
@@ -83,7 +85,9 @@ export class AuthService {
             throw new HttpException('Email is already in use!', HttpStatus.BAD_REQUEST);
         }
         newUser.authorities = ['ROLE_USER'];
+        newUser.activated = false;
         const user: UserDTO = await this.userService.save(newUser);
+        await this.emailService.signUp(user);
         return user;
     }
 

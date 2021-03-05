@@ -9,9 +9,6 @@ import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 
 @Controller('api/references')
-@UseGuards(AuthGuard, RolesGuard)
-@UseInterceptors(LoggingInterceptor)
-@ApiBearerAuth()
 @ApiUseTags('references')
 export class ReferenceController {
   logger = new Logger('ReferenceController');
@@ -48,7 +45,6 @@ export class ReferenceController {
   }
 
   @PostMethod('/')
-  @Roles(RoleType.ADMIN)
   @ApiOperation({ title: 'Create reference' })
   @ApiResponse({
     status: 201,

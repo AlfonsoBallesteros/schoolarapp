@@ -17,11 +17,11 @@ export class CourseDTO extends BaseDTO {
   @ApiModelProperty({ description: 'grade field', required: false })
   grade: string;
 
-  @ApiModelProperty({ type: PersonDTO, description: 'teacher relationship' })
-  teacher: PersonDTO;
+  @ApiModelProperty({ description: 'teacher relationship', required: false })
+  teacher: string;
 
-  @ApiModelProperty({ type: PersonDTO, isArray: true, description: 'students relationship' })
-  students: PersonDTO[];
+  @ApiModelProperty({ isArray: true, description: 'students relationship', required: false })
+  students: any
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

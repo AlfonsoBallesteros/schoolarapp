@@ -4,6 +4,7 @@ import { BaseDTO } from './base.dto';
 
 import { ReferenceDTO } from './reference.dto';
 import { State } from '../../domain/enumeration/state';
+import { ObjectID } from 'typeorm';
 
 /**
  * A Type DTO object.

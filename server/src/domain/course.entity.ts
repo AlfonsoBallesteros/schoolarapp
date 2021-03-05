@@ -18,11 +18,11 @@ export class Course extends BaseEntity {
   @Column({ name: 'grade', nullable: true })
   grade: string;
 
-  @Column(type => Person)
-  teacher: Person;
+  @Column()
+  teacher: string;
 
-  @Column(type => Person)
-  students: Person[];
+  @Column()
+  students: any;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 }

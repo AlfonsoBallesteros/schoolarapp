@@ -20,8 +20,8 @@ export class PersonDTO extends BaseDTO {
   @ApiModelProperty({ description: 'documentId field', required: false })
   documentId: string;
 
-  @ApiModelProperty({ description: 'documentExpDate field', required: false })
-  documentExpDate: any;
+  @ApiModelProperty({type: Date, description: 'documentExpDate field', required: false })
+  documentExpDate: Date;
 
   @ApiModelProperty({ description: 'phoneNumber field', required: false })
   phoneNumber: string;
@@ -29,8 +29,8 @@ export class PersonDTO extends BaseDTO {
   @ApiModelProperty({ description: 'telephonNumber field', required: false })
   telephonNumber: string;
 
-  @ApiModelProperty({ description: 'birthdate field', required: false })
-  birthdate: any;
+  @ApiModelProperty({type: Date, description: 'birthdate field', required: false })
+  birthdate: Date;
 
   @ApiModelProperty({ description: 'address field', required: false })
   address: string;
@@ -59,40 +59,40 @@ export class PersonDTO extends BaseDTO {
   @ApiModelProperty({ enum: State, description: 'state enum field', required: false })
   state: State;
 
-  @ApiModelProperty({ isArray: true })
+  @ApiModelProperty({isArray: true, required: false })
   enrollments: any;
 
-  @ApiModelProperty({ isArray: true, })
+  @ApiModelProperty({ isArray: true, required: false})
   courses: any;
 
-  @ApiModelProperty({ description: 'typeId relationship' })
+  @ApiModelProperty({ description: 'typeId relationship', required: false })
   typeId: string;
 
-  @ApiModelProperty({ description: 'gender relationship' })
+  @ApiModelProperty({ description: 'gender relationship', required: false })
   gender: string;
 
-  @ApiModelProperty({ description: 'neighborhood relationship' })
+  @ApiModelProperty({ description: 'neighborhood relationship', required: false })
   neighborhood: string;
 
-  @ApiModelProperty({ description: 'city relationship' })
+  @ApiModelProperty({ description: 'city relationship', required: false })
   city: string;
 
-  @ApiModelProperty({ description: 'birthplace relationship' })
+  @ApiModelProperty({ description: 'birthplace relationship', required: false })
   birthplace: string;
 
-  @ApiModelProperty({ description: 'nacionality relationship' })
+  @ApiModelProperty({ description: 'nacionality relationship', required: false })
   nacionality: string;
 
-  @ApiModelProperty({  description: 'cityExp relationship' })
+  @ApiModelProperty({  description: 'cityExp relationship', required: false })
   cityExp: string;
 
-  @ApiModelProperty({ description: 'rh relationship' })
+  @ApiModelProperty({ description: 'rh relationship', required: false })
   rh: string;
 
-  @ApiModelProperty({ description: 'eps relationship' })
+  @ApiModelProperty({ description: 'eps relationship', required: false })
   eps: string;
 
-  @ApiModelProperty({  description: 'relation relationship' })
+  @ApiModelProperty({  description: 'relation relationship', required: false })
   relation: string;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

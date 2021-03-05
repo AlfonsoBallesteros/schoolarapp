@@ -25,6 +25,7 @@ export class Type extends BaseEntity {
   @Column({ type: 'simple-enum', name: 'state', enum: State })
   state: State;
 
+  @Column()
   reference: string;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

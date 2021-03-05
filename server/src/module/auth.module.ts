@@ -11,6 +11,7 @@ import { AuthorityRepository } from '../repository/authority.repository';
 
 import { AuthController } from '../web/rest/auth.controller';
 import { AccountController } from '../web/rest/account.controller';
+import { EmailService } from '../service/email.service';
 
 const fileUpload = require('express-fileupload');
 
@@ -25,7 +26,7 @@ const fileUpload = require('express-fileupload');
         }),
     ],
     controllers: [UserJWTController, AuthController, AccountController],
-    providers: [AuthService, JwtStrategy],
+    providers: [AuthService, JwtStrategy, EmailService],
     exports: [AuthService],
 })
 export class AuthModule {

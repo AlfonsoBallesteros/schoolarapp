@@ -44,4 +44,7 @@ export class UserDTO extends BaseDTO {
     resetKey?: string;
 
     resetDate?: Date;
+
+    @ApiModelProperty({ description: 'person relationship', required: true })
+    person: string;
 }

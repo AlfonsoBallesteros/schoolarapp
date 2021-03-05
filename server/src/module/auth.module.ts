@@ -29,13 +29,4 @@ const fileUpload = require('express-fileupload');
     providers: [AuthService, JwtStrategy, EmailService],
     exports: [AuthService],
 })
-export class AuthModule {
-
-
-    configure(consumer: MiddlewareConsumer) {
-        consumer
-            .apply(fileUpload())
-            .forRoutes(AccountController);
-    }
-
-}
+export class AuthModule {}

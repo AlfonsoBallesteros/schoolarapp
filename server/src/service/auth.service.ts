@@ -8,6 +8,9 @@ import { UserService } from '../service/user.service';
 import { UserDTO } from './dto/user.dto';
 import { EmailService } from './email.service';
 
+const { v4: uuidv4 } = require('uuid');
+const { Storage } = require('@google-cloud/storage');
+
 @Injectable()
 export class AuthService {
     logger = new Logger('AuthService');

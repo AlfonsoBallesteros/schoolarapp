@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post as PostMethod, Put, UseGuards, Req, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Post as PostMethod, Put, UseGuards, Req, UseInterceptors, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { Request } from 'express';
 import { EnrollmentDTO } from '../../service/dto/enrollment.dto';
@@ -7,6 +7,7 @@ import { PageRequest, Page } from '../../domain/base/pagination.entity';
 import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
 import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
+import { UploadFileService } from '../../service/uploadfile.service';
 
 @Controller('api/enrollments')
 @UseGuards(AuthGuard, RolesGuard)
@@ -16,7 +17,8 @@ import { LoggingInterceptor } from '../../client/interceptors/logging.intercepto
 export class EnrollmentController {
   logger = new Logger('EnrollmentController');
 
-  constructor(private readonly enrollmentService: EnrollmentService) {}
+  constructor(private readonly enrollmentService: EnrollmentService,
+    private readonly uploadFile: UploadFileService,) { }
 
   @Get('/')
   @Roles(RoleType.USER)
@@ -34,6 +36,18 @@ export class EnrollmentController {
     });
     HeaderUtil.addPaginationHeaders(req.res, new Page(results, count, pageRequest));
     return results;
+  }
+
+
+  @Post('/upload')
+  @ApiOperation({ title: 'Upload Files' })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded files',
+    type: EnrollmentDTO,
+  })
+  async uploadFiles(@Req() req: Request): Promise<any> {
+    return await this.uploadFile.uploadFiles(req);
   }
 
   @Get('/:id')

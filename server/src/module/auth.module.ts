@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AuthService } from '../service/auth.service';
 import { UserModule } from '../module/user.module';
 import { PassportModule } from '@nestjs/passport';
@@ -12,6 +12,8 @@ import { AuthorityRepository } from '../repository/authority.repository';
 import { AuthController } from '../web/rest/auth.controller';
 import { AccountController } from '../web/rest/account.controller';
 import { EmailService } from '../service/email.service';
+
+const fileUpload = require('express-fileupload');
 
 @Module({
     imports: [
@@ -27,4 +29,4 @@ import { EmailService } from '../service/email.service';
     providers: [AuthService, JwtStrategy, EmailService],
     exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

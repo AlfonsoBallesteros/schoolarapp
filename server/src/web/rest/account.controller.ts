@@ -27,7 +27,7 @@ export class AccountController {
     async registerAccount(@Req() req: Request, @Body() userDTO: UserDTO): Promise<any> {
         return await this.authService.registerNewUser(userDTO);
     }
-
+    
     @Get('/activate/:token')
     @ApiOperation({ title: 'Verify Email' })
     @ApiResponse({

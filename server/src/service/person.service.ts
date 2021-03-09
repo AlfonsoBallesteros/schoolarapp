@@ -54,7 +54,8 @@ export class PersonService {
 
   async update(personDTO: PersonDTO): Promise<PersonDTO | undefined> {
     const entity = PersonMapper.fromDTOtoEntity(personDTO);
-    const result = await this.personRepository.save(entity);
+    const update = await this.personRepository.update(entity.id, entity);
+    const result = await this.findById(entity.id);
     return PersonMapper.fromEntityToDTO(result);
   }
 

@@ -43,7 +43,8 @@ export class ReferenceService {
 
   async update(referenceDTO: ReferenceDTO): Promise<ReferenceDTO | undefined> {
     const entity = ReferenceMapper.fromDTOtoEntity(referenceDTO);
-    const result = await this.referenceRepository.save(entity);
+    const update = await this.referenceRepository.update(entity.id, entity);
+    const result = await this.findById(entity.id);
     return ReferenceMapper.fromEntityToDTO(result);
   }
 

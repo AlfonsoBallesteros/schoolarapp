@@ -71,7 +71,7 @@ export class AuthService {
             throw new HttpException('Invalid password!', HttpStatus.BAD_REQUEST);
         }
         userFind.password = newPassword;
-        await this.userService.save(userFind);
+        await this.userService.update(userFind);
         return;
     }
 
@@ -84,7 +84,7 @@ export class AuthService {
         if (userFind) {
             throw new HttpException('Email is already in use!', HttpStatus.BAD_REQUEST);
         }
-        newUser.authorities = ['ROLE_USER'];
+        newUser.authorities = ['ROLE_STUDENT'];
         newUser.activated = false;
         const user: UserDTO = await this.userService.save(newUser);
         await this.emailService.signUp(user);
@@ -103,7 +103,7 @@ export class AuthService {
         userFind.firstName = newUserInfo.firstName;
         userFind.lastName = newUserInfo.lastName;
         userFind.email = newUserInfo.email;
-        await this.userService.save(userFind);
+        await this.userService.update(userFind);
         return;
     }
 }

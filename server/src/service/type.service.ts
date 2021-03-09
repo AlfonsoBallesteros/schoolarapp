@@ -44,7 +44,8 @@ export class TypeService {
 
   async update(typeDTO: TypeDTO): Promise<TypeDTO | undefined> {
     const entity = TypeMapper.fromDTOtoEntity(typeDTO);
-    const result = await this.typeRepository.save(entity);
+    const update = await this.typeRepository.update(entity.id, entity);
+    const result = await this.findById(entity.id);
     return TypeMapper.fromEntityToDTO(result);
   }
 

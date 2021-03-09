@@ -9,6 +9,10 @@ import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 
 @Controller('api/references')
+@ApiUseTags('references')
+@UseGuards(AuthGuard, RolesGuard)
+@UseInterceptors(LoggingInterceptor)
+@ApiBearerAuth()
 export class ReferenceController {
   logger = new Logger('ReferenceController');
 
@@ -59,6 +63,7 @@ export class ReferenceController {
   }
 
   @Put('/')
+  @Roles(RoleType.ADMIN)
   @ApiOperation({ title: 'Update reference' })
   @ApiResponse({
     status: 200,

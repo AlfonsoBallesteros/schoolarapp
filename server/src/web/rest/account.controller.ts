@@ -43,7 +43,6 @@ export class AccountController {
     @Get('/activate')
     @ApiBearerAuth()
     @UseGuards(AuthGuard, RolesGuard)
-    @Roles(RoleType.ADMIN)
     @ApiOperation({ title: 'Activate an account' })
     @ApiResponse({
         status: 200,

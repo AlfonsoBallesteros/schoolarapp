@@ -1,7 +1,8 @@
 'use strict';
 
 export enum RoleType {
-    USER = 'ROLE_USER',
+    STUDENT = 'ROLE_STUDENT',
+    PROFESSOR = 'ROLE_PROFESSOR',
     ADMIN = 'ROLE_ADMIN',
     ANONYMOUS = 'ROLE_ANONYMOUS'
 }

@@ -5,7 +5,9 @@ import { Authority } from '../domain/authority.entity';
 export class SeedUsersRoles1570200490072 implements MigrationInterface {
     role1: Authority = { name: 'ROLE_ADMIN' };
 
-    role2: Authority = { name: 'ROLE_USER' };
+    role2: Authority = { name: 'ROLE_STUDENT' };
+    
+    role3: Authority = { name: 'ROLE_PROFESSOR' };
 
     user1: User = {
         login: 'system',
@@ -69,6 +71,7 @@ export class SeedUsersRoles1570200490072 implements MigrationInterface {
 
         const adminRole = await authorityRepository.save(this.role1);
         const userRole = await authorityRepository.save(this.role2);
+        const professorRole = await authorityRepository.save(this.role3);
 
         const userRepository = getRepository('user');
 

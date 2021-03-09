@@ -19,7 +19,7 @@ export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
   @Get('/')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.ADMIN)
   @ApiResponse({
     status: 200,
     description: 'List all records',
@@ -37,7 +37,7 @@ export class PersonController {
   }
 
   @Get('/:id')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.STUDENT)
   @ApiResponse({
     status: 200,
     description: 'The found record',

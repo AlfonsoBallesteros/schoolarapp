@@ -10,13 +10,16 @@ import { LoggingInterceptor } from '../../client/interceptors/logging.intercepto
 
 @Controller('api/references')
 @ApiUseTags('references')
+@UseGuards(AuthGuard, RolesGuard)
+@UseInterceptors(LoggingInterceptor)
+@ApiBearerAuth()
 export class ReferenceController {
   logger = new Logger('ReferenceController');
 
   constructor(private readonly referenceService: ReferenceService) {}
 
   @Get('/')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.STUDENT, RoleType.ADMIN, RoleType.PROFESSOR)
   @ApiResponse({
     status: 200,
     description: 'List all records',
@@ -34,7 +37,7 @@ export class ReferenceController {
   }
 
   @Get('/:id')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.STUDENT, RoleType.ADMIN, RoleType.PROFESSOR)
   @ApiResponse({
     status: 200,
     description: 'The found record',
@@ -45,6 +48,7 @@ export class ReferenceController {
   }
 
   @PostMethod('/')
+  @Roles(RoleType.ADMIN)
   @ApiOperation({ title: 'Create reference' })
   @ApiResponse({
     status: 201,

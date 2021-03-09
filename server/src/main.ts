@@ -14,7 +14,7 @@ async function bootstrap(): Promise<void> {
     loadCloudConfig();
     registerAsEurekaService();
 
-    const appOptions = { cors: true };
+    const appOptions = { cors: false };
     const app = await NestFactory.create(AppModule, appOptions);
     app.useGlobalPipes(
         new ValidationPipe({

@@ -16,7 +16,6 @@ export class TypeController {
   constructor(private readonly typeService: TypeService) {}
 
   @Get('/')
-  @Roles(RoleType.USER)
   @ApiResponse({
     status: 200,
     description: 'List all records',
@@ -34,7 +33,7 @@ export class TypeController {
   }
 
   @Get('/:id')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.STUDENT, RoleType.PROFESSOR, RoleType.ADMIN)
   @ApiResponse({
     status: 200,
     description: 'The found record',
@@ -45,6 +44,7 @@ export class TypeController {
   }
 
   @PostMethod('/')
+  @Roles(RoleType.ADMIN)
   @ApiOperation({ title: 'Create type' })
   @ApiResponse({
     status: 201,

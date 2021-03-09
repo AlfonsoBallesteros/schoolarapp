@@ -19,7 +19,7 @@ export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
   @Get('/')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.STUDENT, RoleType.PROFESSOR)
   @ApiResponse({
     status: 200,
     description: 'List all records',
@@ -37,7 +37,7 @@ export class CourseController {
   }
 
   @Get('/:id')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.STUDENT, RoleType.PROFESSOR)
   @ApiResponse({
     status: 200,
     description: 'The found record',

@@ -21,7 +21,7 @@ export class EnrollmentController {
     private readonly uploadFile: UploadFileService,) { }
 
   @Get('/')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.ADMIN)
   @ApiResponse({
     status: 200,
     description: 'List all records',
@@ -51,7 +51,7 @@ export class EnrollmentController {
   }
 
   @Get('/:id')
-  @Roles(RoleType.USER)
+  @Roles(RoleType.STUDENT)
   @ApiResponse({
     status: 200,
     description: 'The found record',
@@ -62,7 +62,7 @@ export class EnrollmentController {
   }
 
   @PostMethod('/')
-  @Roles(RoleType.ADMIN)
+  @Roles(RoleType.STUDENT)
   @ApiOperation({ title: 'Create enrollment' })
   @ApiResponse({
     status: 201,
@@ -77,7 +77,7 @@ export class EnrollmentController {
   }
 
   @Put('/')
-  @Roles(RoleType.ADMIN)
+  @Roles(RoleType.STUDENT)
   @ApiOperation({ title: 'Update enrollment' })
   @ApiResponse({
     status: 200,

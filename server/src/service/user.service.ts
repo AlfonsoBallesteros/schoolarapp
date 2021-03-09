@@ -42,7 +42,9 @@ export class UserService {
     }
 
     async update(userDTO: UserDTO): Promise<UserDTO | undefined> {
-        const user = await this.save(UserMapper.fromDTOtoEntity(userDTO));
+        const user = this.convertInAuthorities(UserMapper.fromDTOtoEntity(userDTO));
+        const update = await this.userRepository.save(user);
+        const result = await this.findById(user.id);
         return UserMapper.fromEntityToDTO(user);
     }
 

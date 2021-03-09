@@ -66,7 +66,7 @@ export class SeeedStateCivil1615254940387 implements MigrationInterface {
         });
         await typeRepository.save(this.type);
         refrences.types = this.type;
-        await referenceRepository.save(refrences);
+        await referenceRepository.update(refrences.id, refrences);
 
     }
     public async down(queryRunner: QueryRunner): Promise<any> {}

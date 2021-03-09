@@ -44,7 +44,8 @@ export class CourseService {
 
   async update(courseDTO: CourseDTO): Promise<CourseDTO | undefined> {
     const entity = CourseMapper.fromDTOtoEntity(courseDTO);
-    const result = await this.courseRepository.save(entity);
+    const update = await this.courseRepository.update(entity.id, entity);
+    const result = await this.findById(entity.id);
     return CourseMapper.fromEntityToDTO(result);
   }
 

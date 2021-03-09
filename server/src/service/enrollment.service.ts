@@ -46,7 +46,8 @@ export class EnrollmentService {
 
   async update(enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO | undefined> {
     const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
-    const result = await this.enrollmentRepository.save(entity);
+    const update = await this.enrollmentRepository.update(entity.id, entity);
+    const result = await this.findById(entity.id);
     return EnrollmentMapper.fromEntityToDTO(result);
   }
 

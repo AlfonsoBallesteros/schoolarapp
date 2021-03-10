@@ -17,9 +17,7 @@ async function bootstrap(): Promise<void> {
     const appOptions = { cors: false };
     const app = await NestFactory.create(AppModule, appOptions);
     app.useGlobalPipes(
-        new ValidationPipe({
-            exceptionFactory: (): BadRequestException => new BadRequestException('Validation error'),
-        })
+        new ValidationPipe()
     );
 
     const staticClientPath = config.getClientPath();

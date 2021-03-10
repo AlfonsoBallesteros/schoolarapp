@@ -2,97 +2,165 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { BaseDTO } from './base.dto';
 
+import { IsArray, IsBoolean, IsDateString, IsEmail, IsInt, IsMongoId, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsPositive, IsString, Matches, Max, MaxLength, Min, MinLength, ValidateNested } from 'class-validator';
+
 import { EnrollmentDTO } from './enrollment.dto';
 import { CourseDTO } from './course.dto';
 import { TypeDTO } from './type.dto';
 import { State } from '../../domain/enumeration/state';
+
+
 
 /**
  * A Person DTO object.
  */
 export class PersonDTO extends BaseDTO {
   @ApiModelProperty({ description: 'name field', required: false })
+  @IsString({ message: "El nombre debe ser un String" })
+  @MinLength(4, { message: "El nombre debe ser mayor o igual a $constraint1 caracteres" })
+  @MaxLength(20, { message: "El nombre debe ser menor o igual a $constraint1 caracteres" })
   name: string;
 
   @ApiModelProperty({ description: 'surname field', required: false })
+  @IsString({ message: "El apellido debe ser un String" })
+  @MinLength(4, { message: "El apellido debe ser mayor o igual a $constraint1 caracteres" })
+  @MaxLength(20, { message: "El apellido debe ser menor o igual a $constraint1 caracteres" })
   surname: string;
 
   @ApiModelProperty({ description: 'documentId field', required: false })
+  @IsNumberString({ no_symbols: true }, { message: "El numero de documento no es un string numerico" })
+  @IsNotEmpty({ message: "El numero de documento no debe estar vacio" })
+  @MinLength(7, { message: "El numero de documento debe ser menor o igual a $constraint1 caracteres" })
   documentId: string;
 
-  @ApiModelProperty({type: Date, description: 'documentExpDate field', required: false })
+  @ApiModelProperty({ type: Date, description: 'documentExpDate field', required: false })
+  @IsDateString({ message: "La fecha de expedicion debe ser un String Date" })
+  @IsNotEmpty({ message: "La fecha de expedicion no debe estar vacia" })
   documentExpDate: Date;
 
   @ApiModelProperty({ description: 'phoneNumber field', required: false })
+  @IsNumberString({ no_symbols: true }, { message: "El numero de telefono movil no es un string numerico" })
+  @IsNotEmpty({ message: "La numero de telefono movil no debe estar vacio" })
+  @MinLength(7)
   phoneNumber: string;
 
   @ApiModelProperty({ description: 'telephonNumber field', required: false })
+  @IsNumberString({ no_symbols: true }, { message: "El numero de telefono fijo no es un string numerico" })
+  @IsNotEmpty({ message: "El numero de telefono fijo no debe estar vacio" })
+  @MinLength(7)
   telephonNumber: string;
 
-  @ApiModelProperty({type: Date, description: 'birthdate field', required: false })
+  @ApiModelProperty({ type: Date, description: 'birthdate field', required: false })
+  @IsDateString({ message: "La fecha de nacimiento debe ser un String Date" })
+  @IsNotEmpty({ message: "La fecha de nacimiento no debe estar vacia" })
   birthdate: Date;
 
   @ApiModelProperty({ description: 'address field', required: false })
+  @IsString({ message: "La direccion de residencia debe ser un String" })
+  @MinLength(4, { message: "La direccion de residencia debe ser mayor o igual a $constraint1 caracteres" })
+  @MaxLength(20, { message: "La direccion de residencia debe ser menor o igual a $constraint1 caracteres" })
   address: string;
 
   @ApiModelProperty({ description: 'district field', required: false })
+  @IsString({ message: "La comuna debe ser un String" })
+  @MinLength(4, { message: "La comuna debe ser mayor o igual a $constraint1 caracteres" })
+  @MaxLength(20, { message: "La comuna debe ser menor o igual a $constraint1 caracteres" })
   district: string;
 
   @ApiModelProperty({ description: 'stratus field', required: false })
+  @IsString({ message: "El estrato debe ser un String" })
+  @MinLength(4, { message: "El estrato debe ser mayor o igual a $constraint1 caracteres" })
+  @MaxLength(20, { message: "El estrato debe ser menor o igual a $constraint1 caracteres" })
   stratus: string;
 
   @ApiModelProperty({ description: 'disease field', required: false })
+  @IsBoolean({ message: "El campo enfermedad debe ser Boolean" })
+  @IsNotEmpty({ message: "El campo enfermedad no debe estar vacio" })
   disease: boolean;
 
   @ApiModelProperty({ description: 'disability field', required: false })
+  @IsBoolean({ message: "El campo invalidez debe ser Boolean" })
+  @IsNotEmpty({ message: "El campo invalidez no debe estar vacio" })
   disability: boolean;
 
   @ApiModelProperty({ description: 'stateCivil field', required: false })
+  @IsString({ message: "El estado civil debe ser un String" })
+  @MinLength(4, { message: "El estado civil debe ser mayor o igual a $constraint1 caracteres" })
+  @MaxLength(20, { message: "El estado civil debe ser menor o igual a $constraint1 caracteres" })
   stateCivil: string;
 
   @ApiModelProperty({ description: 'ocupation field', required: false })
+  @IsString({ message: "La ocupacion de la persona debe ser un String" })
+  @MinLength(4, { message: "La ocupacion de la persona debe ser mayor o igual a $constraint1 caracteres" })
+  @MaxLength(20, { message: "La ocupacion de la persona debe ser menor o igual a $constraint1 caracteres" })
   ocupation: string;
 
   @ApiModelProperty({ description: 'parent field', required: false })
+  @IsString({ message: "El campo padres debe ser un String" })
+  @MinLength(4, { message: "El campo padres debe ser mayor o igual a $constraint1 caracteres" })
+  @MaxLength(20, { message: "El campo padres debe ser menor o igual a $constraint1 caracteres" })
   parent: string;
 
   @ApiModelProperty({ enum: State, description: 'state enum field', required: false })
+  @IsNotEmpty({ message: "El estado no debe estar vacio" })
   state: State;
 
-  @ApiModelProperty({isArray: true, required: false })
+  @ApiModelProperty({ isArray: true, required: false })
+  @IsArray({ message: "El campo matriculass debe ser un Array" })
   enrollments: any;
 
-  @ApiModelProperty({ isArray: true, required: false})
+  @ApiModelProperty({ isArray: true, required: false })
+  @IsArray({ message: "El campo cursos debe ser un Array" })
   courses: any;
 
   @ApiModelProperty({ description: 'typeId relationship', required: false })
+  @IsString({ message: "El campo typeId debe ser un String" })
+  @MinLength(4, { message: "El campo typeId debe ser mayor o igual a $constraint1 caracteres" })
   typeId: string;
 
   @ApiModelProperty({ description: 'gender relationship', required: false })
+  @IsString({ message: "El campo genero debe ser un String" })
+  @MinLength(4, { message: "El campo genero debe ser mayor o igual a $constraint1 caracteres" })
   gender: string;
 
   @ApiModelProperty({ description: 'neighborhood relationship', required: false })
+  @IsString({ message: "El campo barrio debe ser un String" })
+  @MinLength(4, { message: "El campo barrio debe ser mayor o igual a $constraint1 caracteres" })
   neighborhood: string;
 
   @ApiModelProperty({ description: 'city relationship', required: false })
+  @IsString({ message: "El campo ciudad debe ser un String" })
+  @MinLength(4, { message: "El campo ciudad debe ser mayor o igual a $constraint1 caracteres" })
   city: string;
 
   @ApiModelProperty({ description: 'birthplace relationship', required: false })
+  @IsString({ message: "El campo lugar de nacimiento debe ser un String" })
+  @MinLength(4, { message: "El campo lugar de nacimiento debe ser mayor o igual a $constraint1 caracteres" })
   birthplace: string;
 
   @ApiModelProperty({ description: 'nacionality relationship', required: false })
+  @IsString({ message: "El campo nacionalidad debe ser un String" })
+  @MinLength(4, { message: "El campo nacionalidad debe ser mayor o igual a $constraint1 caracteres" })
   nacionality: string;
 
-  @ApiModelProperty({  description: 'cityExp relationship', required: false })
+  @ApiModelProperty({ description: 'cityExp relationship', required: false })
+  @IsString({ message: "El campo ciudad de expedicion debe ser un String" })
+  @MinLength(4, { message: "El campo ciudad de expedicion debe ser mayor o igual a $constraint1 caracteres" })
   cityExp: string;
 
   @ApiModelProperty({ description: 'rh relationship', required: false })
+  @IsString({ message: "El campo rh debe ser un String" })
+  @MinLength(4, { message: "El campo rh debe ser mayor o igual a $constraint1 caracteres" })
   rh: string;
 
   @ApiModelProperty({ description: 'eps relationship', required: false })
+  @IsString({ message: "El campo eps debe ser un String" })
+  @MinLength(4, { message: "El campo eps debe ser mayor o igual a $constraint1 caracteres" })
   eps: string;
 
-  @ApiModelProperty({  description: 'relation relationship', required: false })
+  @ApiModelProperty({ description: 'relation relationship', required: false })
+  @IsString({ message: "El campo relation debe ser un String" })
+  @MinLength(4, { message: "El campo relation debe ser mayor o igual a $constraint1 caracteres" })
   relation: string;
 
   // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

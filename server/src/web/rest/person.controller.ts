@@ -17,7 +17,7 @@ import { UpdatePersonDto } from '../../service/dto/update-person.dto';
 export class PersonController {
   logger = new Logger('PersonController');
 
-  constructor(private readonly personService: PersonService) {}
+  constructor(private readonly personService: PersonService) { }
 
   @Get('/')
   @Roles(RoleType.ADMIN)
@@ -49,7 +49,7 @@ export class PersonController {
   }
 
   @PostMethod('/')
-  @Roles(RoleType.ADMIN)
+  @Roles(RoleType.ADMIN, RoleType.STUDENT)
   @ApiOperation({ title: 'Create person' })
   @ApiResponse({
     status: 201,

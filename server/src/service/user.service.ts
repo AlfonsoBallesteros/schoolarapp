@@ -5,6 +5,7 @@ import { UserDTO } from './dto/user.dto';
 import { UserMapper } from './mapper/user.mapper';
 import { UserRepository } from '../repository/user.repository';
 import { FindManyOptions, FindOneOptions } from 'typeorm';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -41,7 +42,7 @@ export class UserService {
         return UserMapper.fromEntityToDTO(this.flatAuthorities(result));
     }
 
-    async update(userDTO: UserDTO): Promise<UserDTO | undefined> {
+    async update(userDTO: UpdateUserDto): Promise<UserDTO | undefined> {
         const user = this.convertInAuthorities(UserMapper.fromDTOtoEntity(userDTO));
         const update = await this.userRepository.save(user);
         const result = await this.findById(user.id);

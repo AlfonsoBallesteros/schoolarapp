@@ -1,11 +1,12 @@
 import { User } from '../../domain/user.entity';
 import { UserDTO } from '../dto/user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 
 /**
  * An User mapper object.
  */
 export class UserMapper {
-    static fromDTOtoEntity(userDTO: UserDTO): User {
+    static fromDTOtoEntity(userDTO: UserDTO | UpdateUserDto): User {
         if (!userDTO) {
             return;
         }

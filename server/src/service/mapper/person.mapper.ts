@@ -1,11 +1,12 @@
 import { Person } from '../../domain/person.entity';
 import { PersonDTO } from '../dto/person.dto';
+import { UpdatePersonDto } from '../dto/update-person.dto';
 
 /**
  * A Person mapper object.
  */
 export class PersonMapper {
-  static fromDTOtoEntity(entityDTO: PersonDTO): Person {
+  static fromDTOtoEntity(entityDTO: PersonDTO | UpdatePersonDto): Person {
     if (!entityDTO) {
       return;
     }

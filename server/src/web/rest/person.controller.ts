@@ -7,6 +7,7 @@ import { PageRequest, Page } from '../../domain/base/pagination.entity';
 import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
 import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
+import { UpdatePersonDto } from '../../service/dto/update-person.dto';
 
 @Controller('api/people')
 @UseGuards(AuthGuard, RolesGuard)
@@ -70,9 +71,10 @@ export class PersonController {
     description: 'The record has been successfully updated.',
     type: PersonDTO
   })
-  async put(@Req() req: Request, @Body() personDTO: PersonDTO): Promise<PersonDTO> {
+  async put(@Req() req: Request, @Body() personDTO: UpdatePersonDto): Promise<PersonDTO> {
+    const updated = await this.personService.update(personDTO);
     HeaderUtil.addEntityCreatedHeaders(req.res, 'Person', personDTO.id);
-    return await this.personService.update(personDTO);
+    return updated;
   }
 
   @Delete('/:id')

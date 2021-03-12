@@ -7,9 +7,9 @@ import { IsArray, IsBoolean, IsDateString, IsEmail, IsInt, IsMongoId, IsNotEmpty
  */
 export class UserLoginDTO {
     @ApiModelProperty({ description: 'User password' })
+    @IsNotEmpty({ message: "La contraseña no debe estar vacia" })
     @IsString({ message: "La contraseña debe ser un String" })
-    @MinLength(8, { message: "La contraseña debe ser mayor o igual a $constraint1 caracteres" })
-    @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.]).{8,}$/, { message: 'La contraseña es demasiado debil' })
+    @MinLength(4, { message: "El nombre de usuario debe ser mayor o igual a $constraint1 caracteres" })
     readonly password: string;
 
     @ApiModelProperty({ description: 'User remember login', required: false })

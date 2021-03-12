@@ -4,7 +4,7 @@ import { BaseDTO } from './base.dto';
 /**
  * An User DTO object.
  */
-export class UserDTO extends BaseDTO {
+export class UpdateUserDto extends BaseDTO {
     @ApiModelProperty({ uniqueItems: true, example: 'myuser', description: 'User login' })
     @IsString({ message: "El nombre de usuario debe ser un String" })
     @MinLength(4, { message: "El nombre de usuario debe ser mayor o igual a $constraint1 caracteres" })
@@ -12,21 +12,19 @@ export class UserDTO extends BaseDTO {
     login: string;
 
     @ApiModelProperty({ example: 'MyUser', description: 'User first name', required: false })
+    @IsOptional()
     @IsString({ message: "El nombre debe ser un String" })
     @MinLength(4, { message: "El nombre debe ser mayor o igual a $constraint1 caracteres" })
     @MaxLength(20, { message: "El nombre debe ser menor o igual a $constraint1 caracteres" })
     firstName?: string;
 
     @ApiModelProperty({ example: 'MyUser', description: 'User last name', required: false })
+    @IsOptional()
     @IsString({ message: "El apellido debe ser un String" })
     @MinLength(4, { message: "El apellido debe ser mayor o igual a $constraint1 caracteres" })
     @MaxLength(20, { message: "El apellido debe ser menor o igual a $constraint1 caracteres" })
     lastName?: string;
 
-    @ApiModelProperty({ example: 'myuser@localhost.it', description: 'User email' })
-    @IsEmail({}, { message: "No es un correo valido" })
-    @IsNotEmpty({ message: "El email no debe estar vacio" })
-    email: string;
 
     @ApiModelProperty({ example: 'true', description: 'User activation', required: false })
     @IsOptional()
@@ -53,6 +51,7 @@ export class UserDTO extends BaseDTO {
     authorities?: any[];
 
     @ApiModelProperty({ example: 'myuser', description: 'User password' })
+    @IsOptional()
     @IsString({ message: "La contraseña debe ser un String" })
     @MinLength(8, { message: "La contraseña debe ser mayor o igual a $constraint1 caracteres" })
     @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.]).{8,}$/, { message: 'La contraseña es demasiado debil' })

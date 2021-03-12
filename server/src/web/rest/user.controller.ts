@@ -7,6 +7,7 @@ import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { ApiBearerAuth, ApiUseTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { UserService } from '../../service/user.service';
+import { UpdateUserDto } from '../../service/dto/update-user.dto';
 
 @Controller('api/users')
 @UseGuards(AuthGuard, RolesGuard)
@@ -60,7 +61,7 @@ export class UserController {
         description: 'The record has been successfully updated.',
         type: UserDTO,
     })
-    async updateUser(@Req() req: Request, @Body() userDTO: UserDTO): Promise<UserDTO> {
+    async updateUser(@Req() req: Request, @Body() userDTO: UpdateUserDto): Promise<UserDTO> {
         const userOnDb = await this.userService.find({ where: { login: userDTO.login } });
         let updated = false;
         if (userOnDb && userOnDb.id) {

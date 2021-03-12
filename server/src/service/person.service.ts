@@ -4,6 +4,7 @@ import { FindManyOptions, FindOneOptions } from 'typeorm';
 import { PersonDTO } from '../service/dto/person.dto';
 import { PersonMapper } from '../service/mapper/person.mapper';
 import { PersonRepository } from '../repository/person.repository';
+import { UpdatePersonDto } from './dto/update-person.dto';
 
 const relationshipNames = [];
 relationshipNames.push('typeId');
@@ -52,7 +53,7 @@ export class PersonService {
     return PersonMapper.fromEntityToDTO(result);
   }
 
-  async update(personDTO: PersonDTO): Promise<PersonDTO | undefined> {
+  async update(personDTO: UpdatePersonDto): Promise<PersonDTO | undefined> {
     const entity = PersonMapper.fromDTOtoEntity(personDTO);
     const update = await this.personRepository.update(entity.id, entity);
     const result = await this.findById(entity.id);

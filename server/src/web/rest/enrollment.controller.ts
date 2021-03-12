@@ -8,6 +8,7 @@ import { AuthGuard, Roles, RolesGuard, RoleType } from '../../security';
 import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { UploadFileService } from '../../service/uploadfile.service';
+import { UpdateEnrollmentDto } from '../../service/dto/update-enrollment.dto';
 
 @Controller('api/enrollments')
 @UseGuards(AuthGuard, RolesGuard)
@@ -84,9 +85,10 @@ export class EnrollmentController {
     description: 'The record has been successfully updated.',
     type: EnrollmentDTO
   })
-  async put(@Req() req: Request, @Body() enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO> {
+  async put(@Req() req: Request, @Body() enrollmentDTO: UpdateEnrollmentDto): Promise<EnrollmentDTO> {
+    const updated = await this.enrollmentService.update(enrollmentDTO);
     HeaderUtil.addEntityCreatedHeaders(req.res, 'Enrollment', enrollmentDTO.id);
-    return await this.enrollmentService.update(enrollmentDTO);
+    return updated;
   }
 
   @Delete('/:id')

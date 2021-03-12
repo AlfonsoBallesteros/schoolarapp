@@ -16,9 +16,7 @@ async function bootstrap(): Promise<void> {
 
     const appOptions = { cors: false };
     const app = await NestFactory.create(AppModule, appOptions);
-    app.useGlobalPipes(
-        new ValidationPipe()
-    );
+    app.useGlobalPipes(new ValidationPipe());
 
     const staticClientPath = config.getClientPath();
     if (fs.existsSync(staticClientPath)) {

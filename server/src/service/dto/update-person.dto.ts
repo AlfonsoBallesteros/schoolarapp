@@ -14,18 +14,20 @@ import { State } from '../../domain/enumeration/state';
 /**
  * A Person DTO object.
  */
-export class PersonDTO extends BaseDTO {
+export class UpdatePersonDto extends BaseDTO {
   @ApiModelProperty({ description: 'name field', required: false })
+  @IsOptional()
   @IsString({ message: "El nombre debe ser un String" })
   @MinLength(4, { message: "El nombre debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(20, { message: "El nombre debe ser menor o igual a $constraint1 caracteres" })
   name: string;
 
   @ApiModelProperty({ description: 'surname field', required: false })
+  @IsOptional()
   @IsString({ message: "El apellido debe ser un String" })
   @MinLength(4, { message: "El apellido debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(20, { message: "El apellido debe ser menor o igual a $constraint1 caracteres" })
-  surname: string;
+  surname: string;  
 
   @ApiModelProperty({ description: 'typeId relationship', required: false })
   @IsOptional()
@@ -33,12 +35,14 @@ export class PersonDTO extends BaseDTO {
   typeId: string;
 
   @ApiModelProperty({ description: 'documentId field', required: false })
+  @IsOptional()
   @IsNumberString({ no_symbols: true }, { message: "El numero de documento no es un string numerico" })
   @IsNotEmpty({ message: "El numero de documento no debe estar vacio" })
   @MinLength(7, { message: "El numero de documento debe ser menor o igual a $constraint1 caracteres" })
   documentId: string;
 
   @ApiModelProperty({ type: Date, description: 'documentExpDate field', required: false })
+  @IsOptional()
   documentExpDate: Date;
 
   @ApiModelProperty({ description: 'cityExp relationship', required: false })
@@ -47,6 +51,7 @@ export class PersonDTO extends BaseDTO {
   cityExp: string;
 
   @ApiModelProperty({ type: Date, description: 'birthdate field', required: false })
+  @IsOptional()
   @IsDateString({}, { message: "La fecha de nacimiento debe ser un String Date" })
   @IsNotEmpty({ message: "La fecha de nacimiento no debe estar vacia" })
   birthdate: Date;
@@ -57,12 +62,14 @@ export class PersonDTO extends BaseDTO {
   birthplace: string;
 
   @ApiModelProperty({ description: 'phoneNumber field', required: false })
+  @IsOptional()
   @IsNumberString({ no_symbols: true }, { message: "El numero de telefono movil no es un string numerico" })
   @IsNotEmpty({ message: "La numero de telefono movil no debe estar vacio" })
   @MinLength(7)
   phoneNumber: string;
 
   @ApiModelProperty({ description: 'telephonNumber field', required: false })
+  @IsOptional()
   @IsNumberString({ no_symbols: true }, { message: "El numero de telefono fijo no es un string numerico" })
   @IsNotEmpty({ message: "El numero de telefono fijo no debe estar vacio" })
   @MinLength(7)
@@ -84,18 +91,21 @@ export class PersonDTO extends BaseDTO {
   neighborhood: string;
 
   @ApiModelProperty({ description: 'address field', required: false })
+  @IsOptional()
   @IsString({ message: "La direccion de residencia debe ser un String" })
   @MinLength(4, { message: "La direccion de residencia debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(20, { message: "La direccion de residencia debe ser menor o igual a $constraint1 caracteres" })
   address: string;
 
   @ApiModelProperty({ description: 'district field', required: false })
+  @IsOptional()
   @IsString({ message: "La comuna debe ser un String" })
   @MinLength(4, { message: "La comuna debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(20, { message: "La comuna debe ser menor o igual a $constraint1 caracteres" })
   district: string;
 
   @ApiModelProperty({ description: 'stratus field', required: false })
+  @IsOptional()
   @IsString({ message: "El estrato debe ser un String" })
   @MinLength(4, { message: "El estrato debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(20, { message: "El estrato debe ser menor o igual a $constraint1 caracteres" })
@@ -117,11 +127,13 @@ export class PersonDTO extends BaseDTO {
   eps: string;
 
   @ApiModelProperty({ description: 'disease field', required: false })
+  @IsOptional()
   @IsBoolean({ message: "El campo enfermedad debe ser Boolean" })
   @IsNotEmpty({ message: "El campo enfermedad no debe estar vacio" })
   disease: boolean;
 
   @ApiModelProperty({ description: 'disability field', required: false })
+  @IsOptional()
   @IsBoolean({ message: "El campo invalidez debe ser Boolean" })
   @IsNotEmpty({ message: "El campo invalidez no debe estar vacio" })
   disability: boolean;

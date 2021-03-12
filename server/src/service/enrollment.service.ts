@@ -4,6 +4,7 @@ import { FindManyOptions, FindOneOptions } from 'typeorm';
 import { EnrollmentDTO } from '../service/dto/enrollment.dto';
 import { EnrollmentMapper } from '../service/mapper/enrollment.mapper';
 import { EnrollmentRepository } from '../repository/enrollment.repository';
+import { UpdateEnrollmentDto } from './dto/update-enrollment.dto';
 
 const relationshipNames = [];
 relationshipNames.push('workShop');
@@ -44,7 +45,7 @@ export class EnrollmentService {
     return EnrollmentMapper.fromEntityToDTO(result);
   }
 
-  async update(enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO | undefined> {
+  async update(enrollmentDTO: UpdateEnrollmentDto): Promise<EnrollmentDTO | undefined> {
     const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
     const update = await this.enrollmentRepository.update(entity.id, entity);
     const result = await this.findById(entity.id);

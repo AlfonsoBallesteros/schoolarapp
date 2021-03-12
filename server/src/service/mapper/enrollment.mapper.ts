@@ -1,11 +1,12 @@
 import { Enrollment } from '../../domain/enrollment.entity';
 import { EnrollmentDTO } from '../dto/enrollment.dto';
+import { UpdateEnrollmentDto } from '../dto/update-enrollment.dto';
 
 /**
  * A Enrollment mapper object.
  */
 export class EnrollmentMapper {
-  static fromDTOtoEntity(entityDTO: EnrollmentDTO): Enrollment {
+  static fromDTOtoEntity(entityDTO: EnrollmentDTO | UpdateEnrollmentDto): Enrollment {
     if (!entityDTO) {
       return;
     }

@@ -22,7 +22,7 @@ export class Person extends BaseEntity {
   documentId: string;
 
   @Column({ type: 'date', name: 'document_exp_date', nullable: true })
-  documentExpDate: any;
+  documentExpDate: Date;
 
   @Column({ name: 'phone_number', nullable: true })
   phoneNumber: string;

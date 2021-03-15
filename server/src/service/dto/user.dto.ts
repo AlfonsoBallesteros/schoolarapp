@@ -75,7 +75,7 @@ export class UserDTO extends BaseDTO {
     resetKey?: string;
 
     @IsOptional()
-    @IsDateString({}, { message: "La fecha de reinicio debe ser un String Date" })
+    @IsDateString({ message: "La fecha de reinicio debe ser un String Date" })
     @IsNotEmpty({ message: "La fecha de reinicio no debe estar vacia" })
     resetDate?: Date;
 

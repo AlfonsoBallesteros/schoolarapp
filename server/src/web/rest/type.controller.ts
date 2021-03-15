@@ -33,7 +33,7 @@ export class TypeController {
   }
 
   @Get('/:id')
-  @Roles(RoleType.STUDENT, RoleType.PROFESSOR, RoleType.ADMIN)
+  //@Roles(RoleType.STUDENT, RoleType.PROFESSOR, RoleType.ADMIN)
   @ApiResponse({
     status: 200,
     description: 'The found record',

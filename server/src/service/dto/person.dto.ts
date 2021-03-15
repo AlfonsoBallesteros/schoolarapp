@@ -47,7 +47,7 @@ export class PersonDTO extends BaseDTO {
   cityExp: string;
 
   @ApiModelProperty({ type: Date, description: 'birthdate field', required: false })
-  @IsDateString({}, { message: "La fecha de nacimiento debe ser un String Date" })
+  @IsDateString({ message: "La fecha de nacimiento debe ser un String Date" })
   @IsNotEmpty({ message: "La fecha de nacimiento no debe estar vacia" })
   birthdate: Date;
 

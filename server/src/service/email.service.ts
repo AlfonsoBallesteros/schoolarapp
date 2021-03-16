@@ -33,7 +33,7 @@ export class EmailService {
             dynamic_template_data: {
                 userFirstName: user.firstName,
                 userLastName: user.lastName,
-                urlToVerify: `${this.BASE_URL}/api/activate/${token}`
+                urlToVerify: `${this.BASE_URL}/auth/${token}`
             }
         };
 

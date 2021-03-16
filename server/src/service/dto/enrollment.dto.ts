@@ -84,6 +84,7 @@ export class EnrollmentDTO extends BaseDTO {
   legacy: boolean;
 
   @ApiModelProperty({ enum: State, description: 'state enum field', required: false })
+  @IsOptional()
   @IsNotEmpty({ message: "El estado no debe estar vacio" })
   state: State;
 

@@ -28,7 +28,6 @@ export class PersonDTO extends BaseDTO {
   surname: string;
 
   @ApiModelProperty({ description: 'typeId relationship', required: false })
-  @IsOptional()
   @IsMongoId({ message: "El tipo de documento debe ser MongoId" })
   typeId: string;
 

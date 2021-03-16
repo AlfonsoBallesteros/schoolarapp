@@ -10,9 +10,9 @@ import { LoggingInterceptor } from '../../client/interceptors/logging.intercepto
 import { UpdatePersonDto } from '../../service/dto/update-person.dto';
 
 @Controller('api/people')
-@UseGuards(AuthGuard, RolesGuard)
+//@UseGuards(AuthGuard, RolesGuard)
 @UseInterceptors(LoggingInterceptor)
-@ApiBearerAuth()
+//@ApiBearerAuth()
 @ApiUseTags('people')
 export class PersonController {
   logger = new Logger('PersonController');
@@ -49,7 +49,7 @@ export class PersonController {
   }
 
   @PostMethod('/')
-  @Roles(RoleType.ADMIN, RoleType.STUDENT)
+  //@Roles(RoleType.ADMIN, RoleType.STUDENT)
   @ApiOperation({ title: 'Create person' })
   @ApiResponse({
     status: 201,
@@ -59,7 +59,7 @@ export class PersonController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async post(@Req() req: Request, @Body() personDTO: PersonDTO): Promise<PersonDTO> {
     const created = await this.personService.save(personDTO);
-    HeaderUtil.addEntityCreatedHeaders(req.res, 'Person', created.id);
+    HeaderUtil.addEntityCreatedHeaders(req.res, 'Person', created._id);
     return created;
   }
 
@@ -73,7 +73,7 @@ export class PersonController {
   })
   async put(@Req() req: Request, @Body() personDTO: UpdatePersonDto): Promise<PersonDTO> {
     const updated = await this.personService.update(personDTO);
-    HeaderUtil.addEntityCreatedHeaders(req.res, 'Person', personDTO.id);
+    HeaderUtil.addEntityCreatedHeaders(req.res, 'Person', personDTO._id);
     return updated;
   }
 

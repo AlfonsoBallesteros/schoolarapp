@@ -34,9 +34,9 @@ export class AuthService {
             throw new HttpException('Your account is not been activated!', HttpStatus.BAD_REQUEST);
         }
 
-        const user = await this.findUserWithAuthById(userFind.id);
+        const user = await this.findUserWithAuthById(userFind._id);
 
-        const payload: Payload = { id: user.id, username: user.login, authorities: user.authorities };
+        const payload: Payload = { id: user._id, username: user.login, authorities: user.authorities };
 
         /* eslint-disable */
         return {

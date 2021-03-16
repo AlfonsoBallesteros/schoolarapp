@@ -73,7 +73,7 @@ export class EnrollmentController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async post(@Req() req: Request, @Body() enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO> {
     const created = await this.enrollmentService.save(enrollmentDTO);
-    HeaderUtil.addEntityCreatedHeaders(req.res, 'Enrollment', created.id);
+    HeaderUtil.addEntityCreatedHeaders(req.res, 'Enrollment', created._id);
     return created;
   }
 
@@ -87,7 +87,7 @@ export class EnrollmentController {
   })
   async put(@Req() req: Request, @Body() enrollmentDTO: UpdateEnrollmentDto): Promise<EnrollmentDTO> {
     const updated = await this.enrollmentService.update(enrollmentDTO);
-    HeaderUtil.addEntityCreatedHeaders(req.res, 'Enrollment', enrollmentDTO.id);
+    HeaderUtil.addEntityCreatedHeaders(req.res, 'Enrollment', enrollmentDTO._id);
     return updated;
   }
 

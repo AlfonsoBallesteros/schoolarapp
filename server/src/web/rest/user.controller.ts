@@ -49,7 +49,7 @@ export class UserController {
     async createUser(@Req() req: Request, @Body() userDTO: UserDTO): Promise<UserDTO> {
         userDTO.password = userDTO.login;
         const created = await this.userService.save(userDTO);
-        HeaderUtil.addEntityCreatedHeaders(req.res, 'User', created.id);
+        HeaderUtil.addEntityCreatedHeaders(req.res, 'User', created._id);
         return created;
     }
 
@@ -64,17 +64,17 @@ export class UserController {
     async updateUser(@Req() req: Request, @Body() userDTO: UpdateUserDto): Promise<UserDTO> {
         const userOnDb = await this.userService.find({ where: { login: userDTO.login } });
         let updated = false;
-        if (userOnDb && userOnDb.id) {
-            userDTO.id = userOnDb.id;
+        if (userOnDb && userOnDb._id) {
+            userDTO._id = userOnDb._id;
             updated = true;
         } else {
             userDTO.password = userDTO.login;
         }
         const createdOrUpdated = await this.userService.update(userDTO);
         if (updated) {
-            HeaderUtil.addEntityUpdatedHeaders(req.res, 'User', createdOrUpdated.id);
+            HeaderUtil.addEntityUpdatedHeaders(req.res, 'User', createdOrUpdated._id);
         } else {
-            HeaderUtil.addEntityCreatedHeaders(req.res, 'User', createdOrUpdated.id);
+            HeaderUtil.addEntityCreatedHeaders(req.res, 'User', createdOrUpdated._id);
         }
         return createdOrUpdated;
     }

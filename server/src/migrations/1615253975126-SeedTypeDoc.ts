@@ -53,11 +53,11 @@ export class SeeedTypeDoc1615253975126 implements MigrationInterface {
         const refrences = await referenceRepository.save(this.rh);
 
         this.type.forEach(t => {
-          t.reference = refrences.id
+          t.reference = refrences._id
         });
         await typeRepository.save(this.type);
         refrences.types = this.type;
-        await referenceRepository.update(refrences.id, refrences);
+        await referenceRepository.update(refrences._id, refrences);
 
     }
     public async down(queryRunner: QueryRunner): Promise<any> {}

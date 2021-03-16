@@ -2,7 +2,7 @@ import { ObjectIdColumn, Column } from 'typeorm';
 
 export abstract class BaseEntity {
     @ObjectIdColumn({ name: '_id' })
-    id?: string;
+    _id?: string;
 
     @Column({ nullable: true })
     createdBy?: string;

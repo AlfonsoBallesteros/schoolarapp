@@ -20,7 +20,7 @@ export class EmailService {
 
     async signUp(user: UserDTO): Promise<any> {
 
-        const token = jwt.sign({ id: user.id }, this.JWT_SECRET_EMAIL, { expiresIn: '30m' });
+        const token = jwt.sign({ id: user._id }, this.JWT_SECRET_EMAIL, { expiresIn: '30m' });
 
         const msg = {
             to: user.email,

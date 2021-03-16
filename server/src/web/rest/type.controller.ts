@@ -9,6 +9,7 @@ import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 
 @Controller('api/types')
+@UseInterceptors(LoggingInterceptor)
 @ApiUseTags('types')
 export class TypeController {
   logger = new Logger('TypeController');
@@ -54,7 +55,7 @@ export class TypeController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async post(@Req() req: Request, @Body() typeDTO: TypeDTO): Promise<TypeDTO> {
     const created = await this.typeService.save(typeDTO);
-    HeaderUtil.addEntityCreatedHeaders(req.res, 'Type', created.id);
+    HeaderUtil.addEntityCreatedHeaders(req.res, 'Type', created._id);
     return created;
   }
 
@@ -67,7 +68,7 @@ export class TypeController {
     type: TypeDTO
   })
   async put(@Req() req: Request, @Body() typeDTO: TypeDTO): Promise<TypeDTO> {
-    HeaderUtil.addEntityCreatedHeaders(req.res, 'Type', typeDTO.id);
+    HeaderUtil.addEntityCreatedHeaders(req.res, 'Type', typeDTO._id);
     return await this.typeService.update(typeDTO);
   }
 

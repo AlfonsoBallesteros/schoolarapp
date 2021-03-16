@@ -7,7 +7,7 @@ export class BaseDTO {
 
     @IsOptional()
     @IsMongoId({ message: "El id debe ser MongoId" })
-    id?: string;
+    _id?: string;
 
     @IsOptional()
     @IsString({ message: "El campo 'creado por' debe ser un String" })
@@ -16,7 +16,7 @@ export class BaseDTO {
     createdBy?: string;
 
     @IsOptional()
-    @IsDateString({ message: "La fecha de creacion debe ser un String Date" })
+    //@IsDateString({ message: "La fecha de creacion debe ser un String Date" })
     @IsNotEmpty({ message: "La fecha de creacion no debe estar vacia" })
     createdDate?: Date;
 
@@ -27,7 +27,7 @@ export class BaseDTO {
     lastModifiedBy?: string;
 
     @IsOptional()
-    @IsDateString({ message: "La fecha de ultima modificacion debe ser un String Date" })
+    //@IsDateString({ message: "La fecha de ultima modificacion debe ser un String Date" })
     @IsNotEmpty({ message: "La fecha de ultima modificacion no debe estar vacia" })
     lastModifiedDate?: Date;
 

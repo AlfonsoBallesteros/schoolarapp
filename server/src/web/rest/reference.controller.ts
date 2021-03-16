@@ -10,9 +10,9 @@ import { LoggingInterceptor } from '../../client/interceptors/logging.intercepto
 
 @Controller('api/references')
 @ApiUseTags('references')
-/* @UseGuards(AuthGuard, RolesGuard)
+//@UseGuards(AuthGuard, RolesGuard)
 @UseInterceptors(LoggingInterceptor)
-@ApiBearerAuth() */
+//@ApiBearerAuth()
 export class ReferenceController {
   logger = new Logger('ReferenceController');
 
@@ -58,7 +58,7 @@ export class ReferenceController {
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async post(@Req() req: Request, @Body() referenceDTO: ReferenceDTO): Promise<ReferenceDTO> {
     const created = await this.referenceService.save(referenceDTO);
-    HeaderUtil.addEntityCreatedHeaders(req.res, 'Reference', created.id);
+    HeaderUtil.addEntityCreatedHeaders(req.res, 'Reference', created._id);
     return created;
   }
 
@@ -71,7 +71,7 @@ export class ReferenceController {
     type: ReferenceDTO
   })
   async put(@Req() req: Request, @Body() referenceDTO: ReferenceDTO): Promise<ReferenceDTO> {
-    HeaderUtil.addEntityCreatedHeaders(req.res, 'Reference', referenceDTO.id);
+    HeaderUtil.addEntityCreatedHeaders(req.res, 'Reference', referenceDTO._id);
     return await this.referenceService.update(referenceDTO);
   }
 

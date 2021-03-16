@@ -134,11 +134,11 @@ export class SeeedDistrict1615254237572 implements MigrationInterface {
         const refrences = await referenceRepository.save(this.rh);
 
         this.type.forEach(t => {
-          t.reference = refrences.id
+          t.reference = refrences._id
         });
         await typeRepository.save(this.type);
         refrences.types = this.type;
-        await referenceRepository.update(refrences.id, refrences);
+        await referenceRepository.update(refrences._id, refrences);
 
     }
     public async down(queryRunner: QueryRunner): Promise<any> {}

@@ -52,7 +52,7 @@ export class UpdatePersonDto extends BaseDTO {
 
   @ApiModelProperty({ type: Date, description: 'birthdate field', required: false })
   @IsOptional()
-  @IsDateString( { message: "La fecha de nacimiento debe ser un String Date" })
+  //@IsDateString( { message: "La fecha de nacimiento debe ser un String Date" })
   @IsNotEmpty({ message: "La fecha de nacimiento no debe estar vacia" })
   birthdate: Date;
 

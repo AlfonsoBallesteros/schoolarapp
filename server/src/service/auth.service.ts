@@ -7,6 +7,7 @@ import { AuthorityRepository } from '../repository/authority.repository';
 import { UserService } from '../service/user.service';
 import { UserDTO } from './dto/user.dto';
 import { EmailService } from './email.service';
+import * as bcrypt from 'bcrypt';
 
 const { v4: uuidv4 } = require('uuid');
 const { Storage } = require('@google-cloud/storage');
@@ -25,15 +26,17 @@ export class AuthService {
         const loginUserName = userLogin.username;
         const loginPassword = userLogin.password;
 
-        const userFind = await this.userService.findByfields({ where: { login: loginUserName, password: loginPassword } });
+        const userFind = await this.userService.findByfields({ where: { login: loginUserName} });
         if (!userFind) {
-            throw new HttpException('Invalid login name or password!', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Invalida usuario o contraseña', HttpStatus.BAD_REQUEST);
         }
 
         if (userFind && !userFind.activated) {
-            throw new HttpException('Your account is not been activated!', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Tu cuenta no esta activada', HttpStatus.BAD_REQUEST);
         }
-
+        if(!bcrypt.compareSync(loginPassword, userFind.password)){
+            throw new HttpException('Socio revise bien', HttpStatus.BAD_REQUEST);
+        }
         const user = await this.findUserWithAuthById(userFind._id);
 
         const payload: Payload = { id: user._id, username: user.login, authorities: user.authorities };
@@ -70,7 +73,8 @@ export class AuthService {
         if (userFind.password !== currentClearTextPassword) {
             throw new HttpException('Invalid password!', HttpStatus.BAD_REQUEST);
         }
-        userFind.password = newPassword;
+        const saltOrRounds = 10;
+        userFind.password = await bcrypt.hash(newPassword, saltOrRounds);;
         await this.userService.update(userFind);
         return;
     }

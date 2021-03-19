@@ -8,7 +8,7 @@ export class UpdateUserDto extends BaseDTO {
     @ApiModelProperty({ uniqueItems: true, example: 'myuser', description: 'User login' })
     @IsString({ message: "El nombre de usuario debe ser un String" })
     @MinLength(4, { message: "El nombre de usuario debe ser mayor o igual a $constraint1 caracteres" })
-    @MaxLength(20, { message: "El nombre de usuario debe ser menor o igual a $constraint1 caracteres" })
+    @MaxLength(80, { message: "El nombre de usuario debe ser menor o igual a $constraint1 caracteres" })
     login: string;
 
     @ApiModelProperty({ example: 'MyUser', description: 'User first name', required: false })
@@ -54,7 +54,7 @@ export class UpdateUserDto extends BaseDTO {
     @IsOptional()
     @IsString({ message: "La contraseña debe ser un String" })
     @MinLength(8, { message: "La contraseña debe ser mayor o igual a $constraint1 caracteres" })
-    @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.]).{8,}$/, { message: 'La contraseña es demasiado debil' })
+    @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/, { message: 'La contraseña es demasiado debil' })
     password: string;
 
     @ApiModelProperty({ example: 'http://my-image-url', description: 'Image url', required: false })

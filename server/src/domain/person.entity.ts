@@ -18,16 +18,16 @@ export class Person extends BaseEntity {
   @Column({ name: 'surname', nullable: true })
   surname: string;
 
-  @Column({ name: 'document_id', nullable: true })
+  @Column({ nullable: true, unique: true })
   documentId: string;
 
   @Column({ type: 'date', name: 'document_exp_date', nullable: true })
   documentExpDate: Date;
 
-  @Column({ name: 'phone_number', nullable: true })
+  @Column({ nullable: true })
   phoneNumber: string;
 
-  @Column({ name: 'telephon_number', nullable: true })
+  @Column({ nullable: true })
   telephonNumber: string;
 
   @Column({ type: 'date', name: 'birthdate', nullable: true })
@@ -48,7 +48,7 @@ export class Person extends BaseEntity {
   @Column({ type: 'boolean', name: 'disability', nullable: true })
   disability: boolean;
 
-  @Column({ name: 'state_civil', nullable: true })
+  @Column({ nullable: true })
   stateCivil: string;
 
   @Column({ name: 'ocupation', nullable: true })

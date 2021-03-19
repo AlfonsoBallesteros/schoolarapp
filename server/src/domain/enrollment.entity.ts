@@ -11,25 +11,25 @@ import { State } from './enumeration/state';
  */
 @Entity('enrollment')
 export class Enrollment extends BaseEntity {
-  @Column({ name: 'peace_safe_file', nullable: true })
+  @Column({ nullable: true })
   peaceSafeFile: string;
 
-  @Column({ name: 'academic_file', nullable: true })
+  @Column({ nullable: true })
   academicFile: string;
 
-  @Column({ name: 'doc_student_file', nullable: true })
+  @Column({ nullable: true })
   docStudentFile: string;
 
-  @Column({ name: 'doc_dad_file', nullable: true })
+  @Column({ nullable: true })
   docDadFile: string;
 
-  @Column({ name: 'doc_mom_file', nullable: true })
+  @Column({ nullable: true })
   docMomFile: string;
 
-  @Column({ name: 'doc_tutor_file', nullable: true })
+  @Column({ nullable: true })
   docTutorFile: string;
 
-  @Column({ name: 'academic_period', nullable: true })
+  @Column({ nullable: true })
   academicPeriod: string;
 
   @Column({ name: 'year', nullable: true })
@@ -38,10 +38,10 @@ export class Enrollment extends BaseEntity {
   @Column({ name: 'obs', nullable: true })
   obs: string;
 
-  @Column({ name: 'working_day', nullable: true })
+  @Column({ nullable: true })
   workingDay: string;
 
-  @Column({ name: 'enroll_modality', nullable: true })
+  @Column({ nullable: true })
   enrollModality: string;
 
   @Column({ type: 'boolean', name: 'legacy', nullable: true })

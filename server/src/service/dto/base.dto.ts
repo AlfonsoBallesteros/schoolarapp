@@ -16,7 +16,7 @@ export class BaseDTO {
     createdBy?: string;
 
     @IsOptional()
-    //@IsDateString({ message: "La fecha de creacion debe ser un String Date" })
+    @IsDateString({}, { message: "La fecha de creacion debe ser un String Date" })
     @IsNotEmpty({ message: "La fecha de creacion no debe estar vacia" })
     createdDate?: Date;
 

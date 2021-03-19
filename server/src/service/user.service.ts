@@ -6,6 +6,8 @@ import { UserMapper } from './mapper/user.mapper';
 import { UserRepository } from '../repository/user.repository';
 import { FindManyOptions, FindOneOptions } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class UserService {
@@ -38,6 +40,8 @@ export class UserService {
 
     async save(userDTO: UserDTO): Promise<UserDTO | undefined> {
         const user = this.convertInAuthorities(UserMapper.fromDTOtoEntity(userDTO));
+        const saltOrRounds = 10;
+        user.password = await bcrypt.hash(user.password, saltOrRounds);
         const result = await this.userRepository.save(user);
         return UserMapper.fromEntityToDTO(this.flatAuthorities(result));
     }

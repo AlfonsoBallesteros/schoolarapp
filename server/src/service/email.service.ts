@@ -40,7 +40,7 @@ export class EmailService {
 
         SendGrid.send(msg)
             .then(resp => console.log('Email sent...'))
-            .catch(error => { console.log(error.message); throw new HttpException("Email couldn't be sent", HttpStatus.BAD_REQUEST) });
+            .catch(error => { console.log(error.message); throw new HttpException("Email no se puede enviar", HttpStatus.BAD_REQUEST) });
     }
 
 
@@ -48,12 +48,12 @@ export class EmailService {
 
         let { id }: any = jwt.verify(token, this.JWT_SECRET_EMAIL);
         let userSaved: UserDTO = await this.userService.findById(id);
-        if (!userSaved) { throw new HttpException("User doesn't exist", HttpStatus.BAD_REQUEST) };
-        if (userSaved.activated === true) { throw new HttpException("This user has already been activated", HttpStatus.BAD_REQUEST) };
+        if (!userSaved) { throw new HttpException(`El usuario ${userSaved._id} no existe`, HttpStatus.BAD_REQUEST) };
+        if (userSaved.activated === true) { throw new HttpException("Este usuario ya ha sido activado", HttpStatus.BAD_REQUEST) };
 
         userSaved.activated = true;
         const userUpdated = await this.userService.update(userSaved);
-        if (!userUpdated) throw new HttpException("User couldn't be updated", HttpStatus.BAD_REQUEST);
+        if (!userUpdated) throw new HttpException("El usuario no se puede actualizar", HttpStatus.BAD_REQUEST);
 
         if (userUpdated) {
             const msg = {
@@ -72,10 +72,10 @@ export class EmailService {
             };
             await SendGrid.send(msg)
                 .then(resp => console.log('Confirm Email sent...'))
-                .catch(error => { console.log(error.message); throw new HttpException("Email couldn't be sent", HttpStatus.BAD_REQUEST) });
+                .catch(error => { console.log(error.message); throw new HttpException("Email no se puede enviar", HttpStatus.BAD_REQUEST) });
         };
 
-        return { messsage: "Verified User" };
+        return { messsage: `El usuario ${userSaved.email} ha sido autenticado`};
     }
 
 

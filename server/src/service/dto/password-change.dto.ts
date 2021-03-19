@@ -14,6 +14,6 @@ export class PasswordChangeDTO {
     @IsString({ message: "La contraseña nueva debe ser un String" })
     @IsNotEmpty({ message: "La contraseña nueva no debe estar vacia" })
     @MinLength(8, { message: "La contraseña nueva debe ser mayor o igual a $constraint1 caracteres" })
-    @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.]).{8,}$/, { message: 'La contraseña nueva es demasiado debil' })
+    @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]){8,}$/, { message: 'La contraseña nueva es demasiado debil' })
     readonly newPassword: string;
 }

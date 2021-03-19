@@ -38,13 +38,21 @@ export class CourseService {
 
   async save(courseDTO: CourseDTO): Promise<CourseDTO | undefined> {
     const entity = CourseMapper.fromDTOtoEntity(courseDTO);
+    if(entity._id != null){
+      throw new HttpException("El nuevo curso no puede tener un id", HttpStatus.BAD_REQUEST);
+    }
     const result = await this.courseRepository.save(entity);
     return CourseMapper.fromEntityToDTO(result);
   }
 
   async update(courseDTO: CourseDTO): Promise<CourseDTO | undefined> {
     const entity = CourseMapper.fromDTOtoEntity(courseDTO);
-    const update = await this.courseRepository.update(entity._id, entity);
+    let id = entity._id;
+    const{_id, ...CourseDTO} = entity
+    if(entity._id == null || entity._id==""){
+      throw new HttpException("No puede ir el curso sin id", HttpStatus.BAD_REQUEST);
+    }
+    const update = await this.courseRepository.update(id, CourseDTO);
     const result = await this.findById(entity._id);
     return CourseMapper.fromEntityToDTO(result);
   }

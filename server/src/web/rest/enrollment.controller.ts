@@ -52,7 +52,7 @@ export class EnrollmentController {
   }
 
   @Get('/:id')
-  @Roles(RoleType.STUDENT)
+  @Roles(RoleType.STUDENT, RoleType.ADMIN)
   @ApiResponse({
     status: 200,
     description: 'The found record',

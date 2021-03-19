@@ -49,14 +49,26 @@ export class PersonService {
 
   async save(personDTO: PersonDTO): Promise<PersonDTO | undefined> {
     const entity = PersonMapper.fromDTOtoEntity(personDTO);
-    const result = await this.personRepository.save(entity);
-    return PersonMapper.fromEntityToDTO(result);
+    if(entity._id != null){
+      throw new HttpException("La nueva persona no puede tener un id", HttpStatus.BAD_REQUEST);
+    }
+    try{
+      const result = await this.personRepository.save(entity);
+      return PersonMapper.fromEntityToDTO(result);
+    }catch{
+      throw new HttpException("El documento ya existe", HttpStatus.I_AM_A_TEAPOT);
+    }
   }
 
   async update(personDTO: UpdatePersonDto): Promise<PersonDTO | undefined> {
     const entity = PersonMapper.fromDTOtoEntity(personDTO);
-    const update = await this.personRepository.update(entity._id, entity);
-    const result = await this.findById(entity._id);
+    let id = entity._id;
+    const{_id, ...UpdatePersonDto} = entity
+    if(entity._id == null || entity._id==""){
+      throw new HttpException("No puede ir la persona sin id", HttpStatus.BAD_REQUEST);
+    }
+    const update = await this.personRepository.update(id, UpdatePersonDto);
+    const result = await this.personRepository.findOneOrFail(entity._id);
     return PersonMapper.fromEntityToDTO(result);
   }
 

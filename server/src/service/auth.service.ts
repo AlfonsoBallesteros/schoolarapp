@@ -35,7 +35,7 @@ export class AuthService {
             throw new HttpException('Tu cuenta no esta activada', HttpStatus.BAD_REQUEST);
         }
         if(!bcrypt.compareSync(loginPassword, userFind.password)){
-            throw new HttpException('Socio revise bien', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Invalida usuario o contraseña!', HttpStatus.BAD_REQUEST);
         }
         const user = await this.findUserWithAuthById(userFind._id);
 

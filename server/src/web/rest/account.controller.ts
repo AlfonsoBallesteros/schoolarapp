@@ -1,6 +1,7 @@
 import { Body, Param, Post, Res, UseGuards, Controller, Get, Logger, Req, UseInterceptors } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { AuthGuard, Roles, RoleType, RolesGuard } from '../../security';
+import { AuthGuard as guard } from '@nestjs/passport';
 import { PasswordChangeDTO } from '../../service/dto/password-change.dto';
 import { UserDTO } from '../../service/dto/user.dto';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
@@ -73,9 +74,10 @@ export class AccountController {
         status: 200,
         description: 'user retrieved',
     })
-    async getAccount(@Req() req: Request): Promise<any> {
+    async getAccount(@Req() req: Request): Promise<UserDTO> {
         const user: any = req.user;
-        return await this.authService.getAccount(user.id);
+        const userDto = await this.authService.getAccount(user._id);
+        return userDto
     }
 
     @Post('/account')

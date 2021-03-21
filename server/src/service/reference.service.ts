@@ -43,7 +43,11 @@ export class ReferenceService {
 
   async update(referenceDTO: ReferenceDTO): Promise<ReferenceDTO | undefined> {
     const entity = ReferenceMapper.fromDTOtoEntity(referenceDTO);
-    const update = await this.referenceRepository.update(entity._id, entity);
+    let id = entity._id;
+    if(entity._id == null || entity._id==""){
+      throw new HttpException("No puede ir la persona sin id", HttpStatus.BAD_REQUEST);
+    }
+    const update = await this.referenceRepository.update(id, entity);
     const result = await this.findById(entity._id);
     return ReferenceMapper.fromEntityToDTO(result);
   }

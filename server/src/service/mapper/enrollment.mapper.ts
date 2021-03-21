@@ -1,6 +1,7 @@
 import { Enrollment } from '../../domain/enrollment.entity';
 import { EnrollmentDTO } from '../dto/enrollment.dto';
 import { UpdateEnrollmentDto } from '../dto/update-enrollment.dto';
+import { ObjectID } from 'mongodb';
 
 /**
  * A Enrollment mapper object.
@@ -14,6 +15,7 @@ export class EnrollmentMapper {
     const fields = Object.getOwnPropertyNames(entityDTO);
     fields.forEach(field => {
       entity[field] = entityDTO[field];
+      entity._id = new ObjectID(entityDTO._id)
     });
     return entity;
   }

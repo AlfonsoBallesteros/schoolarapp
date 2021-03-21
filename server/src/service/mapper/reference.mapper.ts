@@ -1,5 +1,6 @@
 import { Reference } from '../../domain/reference.entity';
 import { ReferenceDTO } from '../dto/reference.dto';
+import { ObjectID } from 'mongodb';
 
 /**
  * A Reference mapper object.
@@ -13,6 +14,7 @@ export class ReferenceMapper {
     const fields = Object.getOwnPropertyNames(entityDTO);
     fields.forEach(field => {
       entity[field] = entityDTO[field];
+      entity._id = new ObjectID(entityDTO._id)
     });
     return entity;
   }

@@ -52,11 +52,11 @@ export class EnrollmentService {
   async update(enrollmentDTO: UpdateEnrollmentDto): Promise<EnrollmentDTO | undefined> {
     const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
     let id = entity._id;
-    const{_id, ...UpdateEnrollmentDto} = entity
+    //const{_id, ...UpdateEnrollmentDto} = entity
     if(entity._id == null || entity._id==""){
       throw new HttpException("No puede ir la matricula sin id", HttpStatus.BAD_REQUEST);
     }
-    const update = await this.enrollmentRepository.update(id, UpdateEnrollmentDto);
+    const update = await this.enrollmentRepository.update(id, entity);
     const result = await this.findById(entity._id);
     return EnrollmentMapper.fromEntityToDTO(result);
   }

@@ -64,7 +64,7 @@ export class PersonController {
   }
 
   @Put('/')
-  @Roles(RoleType.ADMIN)
+  @Roles(RoleType.ADMIN, RoleType.STUDENT)
   @ApiOperation({ title: 'Update person' })
   @ApiResponse({
     status: 200,

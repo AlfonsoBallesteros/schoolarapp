@@ -1,6 +1,7 @@
 import { Person } from '../../domain/person.entity';
 import { PersonDTO } from '../dto/person.dto';
 import { UpdatePersonDto } from '../dto/update-person.dto';
+import { ObjectID } from 'mongodb';
 
 /**
  * A Person mapper object.
@@ -14,6 +15,7 @@ export class PersonMapper {
     const fields = Object.getOwnPropertyNames(entityDTO);
     fields.forEach(field => {
       entity[field] = entityDTO[field];
+      entity._id = new ObjectID(entityDTO._id)
     });
     return entity;
   }

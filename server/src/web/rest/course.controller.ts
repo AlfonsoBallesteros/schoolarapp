@@ -37,7 +37,7 @@ export class CourseController {
   }
 
   @Get('/:id')
-  @Roles(RoleType.STUDENT, RoleType.PROFESSOR)
+  @Roles(RoleType.STUDENT, RoleType.PROFESSOR, RoleType.STUDENT)
   @ApiResponse({
     status: 200,
     description: 'The found record',

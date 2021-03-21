@@ -107,7 +107,6 @@ export class AuthService {
         userFind.firstName = newUserInfo.firstName;
         userFind.lastName = newUserInfo.lastName;
         userFind.email = newUserInfo.email;
-        await this.userService.update(userFind);
-        return;
+        return await this.userService.update(userFind);;
     }
 }

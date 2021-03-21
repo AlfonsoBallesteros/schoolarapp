@@ -44,7 +44,11 @@ export class TypeService {
 
   async update(typeDTO: TypeDTO): Promise<TypeDTO | undefined> {
     const entity = TypeMapper.fromDTOtoEntity(typeDTO);
-    const update = await this.typeRepository.update(entity._id, entity);
+    let id = entity._id;
+    if(entity._id == null || entity._id==""){
+      throw new HttpException("No puede ir la persona sin id", HttpStatus.BAD_REQUEST);
+    }
+    const update = await this.typeRepository.update(id, entity);
     const result = await this.findById(entity._id);
     return TypeMapper.fromEntityToDTO(result);
   }

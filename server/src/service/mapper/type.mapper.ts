@@ -1,5 +1,6 @@
 import { Type } from '../../domain/type.entity';
 import { TypeDTO } from '../dto/type.dto';
+import { ObjectID } from 'mongodb';
 
 /**
  * A Type mapper object.
@@ -13,6 +14,7 @@ export class TypeMapper {
     const fields = Object.getOwnPropertyNames(entityDTO);
     fields.forEach(field => {
       entity[field] = entityDTO[field];
+      entity._id = new ObjectID(entityDTO._id)
     });
     return entity;
   }

@@ -63,7 +63,7 @@ export class EnrollmentController {
   }
 
   @PostMethod('/')
-  @Roles(RoleType.STUDENT)
+  @Roles(RoleType.STUDENT, RoleType.ADMIN)
   @ApiOperation({ title: 'Create enrollment' })
   @ApiResponse({
     status: 201,
@@ -78,7 +78,7 @@ export class EnrollmentController {
   }
 
   @Put('/')
-  @Roles(RoleType.STUDENT)
+  @Roles(RoleType.STUDENT, RoleType.ADMIN)
   @ApiOperation({ title: 'Update enrollment' })
   @ApiResponse({
     status: 200,

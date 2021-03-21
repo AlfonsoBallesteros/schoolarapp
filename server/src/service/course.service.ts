@@ -48,11 +48,11 @@ export class CourseService {
   async update(courseDTO: CourseDTO): Promise<CourseDTO | undefined> {
     const entity = CourseMapper.fromDTOtoEntity(courseDTO);
     let id = entity._id;
-    const{_id, ...CourseDTO} = entity
+    //const{_id, ...CourseDTO} = entity
     if(entity._id == null || entity._id==""){
       throw new HttpException("No puede ir el curso sin id", HttpStatus.BAD_REQUEST);
     }
-    const update = await this.courseRepository.update(id, CourseDTO);
+    const update = await this.courseRepository.update(id, entity);
     const result = await this.findById(entity._id);
     return CourseMapper.fromEntityToDTO(result);
   }

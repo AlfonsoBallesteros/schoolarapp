@@ -85,6 +85,7 @@ export class UserController {
         description: 'The found record',
         type: UserDTO,
     })
+    @Roles(RoleType.ADMIN)
     async getUser(@Param('login') loginValue: string): Promise<UserDTO> {
         return await this.userService.find({ where: { login: loginValue } });
     }

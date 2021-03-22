@@ -53,17 +53,16 @@ export class PersonService {
     }
     const entity = PersonMapper.fromDTOtoEntity(personDTO);
     try{
-      let personFind: PersonDTO = await this.findByfields({where: {documentId: entity.documentId}}) 
+      /* let personFind: PersonDTO = await this.findByfields({where: {documentId: entity.documentId}}) 
       
       if(personFind){
         console.log(personFind);
         throw new HttpException("El documento ya existe!", HttpStatus.BAD_REQUEST);
-      }
+      } */
       const result = await this.personRepository.save(entity);
       return PersonMapper.fromEntityToDTO(result);
     }catch{
-      console.log("falla");
-      throw new HttpException("El documento ya existe", HttpStatus.BAD_REQUEST);
+      throw new HttpException('Documento ya existe!', HttpStatus.BAD_REQUEST);
     }
   }
 

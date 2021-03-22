@@ -68,10 +68,10 @@ export class AuthService {
     async changePassword(userLogin: string, currentClearTextPassword: string, newPassword: string): Promise<void> {
         const userFind: UserDTO = await this.userService.findByfields({ where: { login: userLogin } });
         if (!userFind) {
-            throw new HttpException('Invalid login name!', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Invalido login!', HttpStatus.BAD_REQUEST);
         }
         if (userFind.password !== currentClearTextPassword) {
-            throw new HttpException('Invalid password!', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Invalida password!', HttpStatus.BAD_REQUEST);
         }
         const saltOrRounds = 10;
         userFind.password = await bcrypt.hash(newPassword, saltOrRounds);;
@@ -82,11 +82,11 @@ export class AuthService {
     async registerNewUser(newUser: UserDTO): Promise<UserDTO> {
         let userFind: UserDTO = await this.userService.findByfields({ where: { login: newUser.login } });
         if (userFind) {
-            throw new HttpException('Login name already used!', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Login ya es usado!', HttpStatus.BAD_REQUEST);
         }
         userFind = await this.userService.findByfields({ where: { email: newUser.email } });
         if (userFind) {
-            throw new HttpException('Email is already in use!', HttpStatus.BAD_REQUEST);
+            throw new HttpException('Email ya esta siendo utilizado!', HttpStatus.BAD_REQUEST);
         }
         newUser.authorities = ['ROLE_STUDENT'];
         newUser.activated = false;

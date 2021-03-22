@@ -31,7 +31,7 @@ export class Person extends BaseEntity {
   telephonNumber: string;
 
   @Column({ type: 'date', name: 'birthdate', nullable: true })
-  birthdate: any;
+  birthdate: Date;
 
   @Column({ name: 'address', nullable: true })
   address: string;

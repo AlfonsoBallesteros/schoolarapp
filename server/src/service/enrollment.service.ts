@@ -41,10 +41,10 @@ export class EnrollmentService {
   }
 
   async save(enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO | undefined> {
-    const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
-    if(entity._id != null){
+    if(enrollmentDTO._id != null){
       throw new HttpException("La nueva matricula no puede tener un id", HttpStatus.BAD_REQUEST);
     }
+    const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
     const result = await this.enrollmentRepository.save(entity);
     return EnrollmentMapper.fromEntityToDTO(result);
   }

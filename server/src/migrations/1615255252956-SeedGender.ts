@@ -23,25 +23,25 @@ export class SeeedGender1615255252956 implements MigrationInterface {
             reference: ""
           },
           {
-            code: "GeneroMasculino",
-            name: "Cedula de extranjeria",
-            value: "CE",
+            code: "GeneroFemenino",
+            name: "Femenino",
+            value: "F",
             parent: "",
             state:State.ACTIVO,
             reference: ""
           },
           {
-            code: "TypeDocTarjetaIdentidad",
-            name: "Tarjeta Identidad",
-            value: "TI",
+            code: "GeneroOtro",
+            name: "Otro",
+            value: "Otro",
             parent: "",
             state:State.ACTIVO,
             reference: ""
           },
           {
-            code: "TypeDocPassport",
-            name: "Pasaporte",
-            value: "PS",
+            code: "GeneroPrefieroNoResponer",
+            name: "Prefieron no responder",
+            value: "prefieron no responder",
             parent: "",
             state:State.ACTIVO,
             reference: ""

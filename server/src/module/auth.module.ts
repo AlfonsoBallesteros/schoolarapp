@@ -12,12 +12,13 @@ import { AuthorityRepository } from '../repository/authority.repository';
 import { AuthController } from '../web/rest/auth.controller';
 import { AccountController } from '../web/rest/account.controller';
 import { EmailService } from '../service/email.service';
+import { PersonRepository } from '../repository/person.repository';
 
 const fileUpload = require('express-fileupload');
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([AuthorityRepository]),
+        TypeOrmModule.forFeature([AuthorityRepository, PersonRepository]),
         UserModule,
         PassportModule,
         JwtModule.register({
@@ -29,4 +30,4 @@ const fileUpload = require('express-fileupload');
     providers: [AuthService, JwtStrategy, EmailService],
     exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -8,6 +8,7 @@ import { UserService } from '../service/user.service';
 import { UserDTO } from './dto/user.dto';
 import { EmailService } from './email.service';
 import * as bcrypt from 'bcrypt';
+import { PersonRepository } from '../repository/person.repository';
 
 const { v4: uuidv4 } = require('uuid');
 const { Storage } = require('@google-cloud/storage');
@@ -18,6 +19,7 @@ export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
         @InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository,
+        @InjectRepository(PersonRepository) private personRepository: PersonRepository,
         private userService: UserService,
         private emailService: EmailService
     ) { }
@@ -26,7 +28,7 @@ export class AuthService {
         const loginUserName = userLogin.username;
         const loginPassword = userLogin.password;
 
-        const userFind = await this.userService.findByfields({ where: { login: loginUserName} });
+        const userFind = await this.userService.findByfields({ where: { login: loginUserName } });
         if (!userFind) {
             throw new HttpException('Invalida usuario o contraseña', HttpStatus.BAD_REQUEST);
         }
@@ -34,7 +36,7 @@ export class AuthService {
         if (userFind && !userFind.activated) {
             throw new HttpException('Tu cuenta no esta activada', HttpStatus.BAD_REQUEST);
         }
-        if(!bcrypt.compareSync(loginPassword, userFind.password)){
+        if (!bcrypt.compareSync(loginPassword, userFind.password)) {
             throw new HttpException('Invalida usuario o contraseña!', HttpStatus.BAD_REQUEST);
         }
         const user = await this.findUserWithAuthById(userFind._id);
@@ -58,9 +60,16 @@ export class AuthService {
     }
 
     async getAccount(userId: string): Promise<UserDTO | undefined> {
-        const userDTO: UserDTO = await this.findUserWithAuthById(userId);
+        let userDTO: UserDTO = await this.findUserWithAuthById(userId);
         if (!userDTO) {
             return;
+        }
+        if (userDTO.person) {
+            let dataPerson = await this.personRepository.findOne(userDTO.person);
+            if (!dataPerson) {
+                throw new HttpException('No se encontró una persona relacionada con el usuario actual!', HttpStatus.BAD_REQUEST);
+            }
+            userDTO.person = dataPerson;
         }
         return userDTO;
     }

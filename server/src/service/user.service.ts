@@ -11,7 +11,7 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-    constructor(@InjectRepository(UserRepository) private userRepository: UserRepository) {}
+    constructor(@InjectRepository(UserRepository) private userRepository: UserRepository) { }
 
     async findById(id: string): Promise<UserDTO | undefined> {
         const result = await this.userRepository.findOne(id);

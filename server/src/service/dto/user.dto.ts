@@ -82,5 +82,5 @@ export class UserDTO extends BaseDTO {
     @ApiModelProperty({ description: 'person relationship', required: true })
     @IsOptional()
     @IsMongoId({ message: "El id de persona debe ser MongoId" })
-    person: string;
+    person: any;
 }

@@ -5,6 +5,8 @@ import { EnrollmentDTO } from '../service/dto/enrollment.dto';
 import { EnrollmentMapper } from '../service/mapper/enrollment.mapper';
 import { EnrollmentRepository } from '../repository/enrollment.repository';
 import { UpdateEnrollmentDto } from './dto/update-enrollment.dto';
+import { PdfReportService } from './pdf-report.service';
+
 
 const relationshipNames = [];
 relationshipNames.push('workShop');
@@ -15,7 +17,8 @@ relationshipNames.push('student');
 export class EnrollmentService {
   logger = new Logger('EnrollmentService');
 
-  constructor(@InjectRepository(EnrollmentRepository) private enrollmentRepository: EnrollmentRepository) {}
+  constructor(@InjectRepository(EnrollmentRepository) private enrollmentRepository: EnrollmentRepository,
+    private pdfReportService: PdfReportService) { }
 
   async findById(id: string): Promise<EnrollmentDTO | undefined> {
     //const options = { relations: relationshipNames };
@@ -41,11 +44,13 @@ export class EnrollmentService {
   }
 
   async save(enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO | undefined> {
-    if(enrollmentDTO._id != null){
+    if (enrollmentDTO._id != null) {
       throw new HttpException("La nueva matricula no puede tener un id", HttpStatus.BAD_REQUEST);
     }
     const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
     const result = await this.enrollmentRepository.save(entity);
+    let resultPdfReport = await this.pdfReportService.processAndSaveCertificadoInscripcion(result.student, result._id);
+    console.log(resultPdfReport);
     return EnrollmentMapper.fromEntityToDTO(result);
   }
 
@@ -53,7 +58,7 @@ export class EnrollmentService {
     const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
     let id = entity._id;
     //const{_id, ...UpdateEnrollmentDto} = entity
-    if(entity._id == null || entity._id==""){
+    if (entity._id == null || entity._id == "") {
       throw new HttpException("No puede ir la matricula sin id", HttpStatus.BAD_REQUEST);
     }
     const update = await this.enrollmentRepository.update(id, entity);

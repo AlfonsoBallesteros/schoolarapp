@@ -30,6 +30,9 @@ export class Enrollment extends BaseEntity {
   docTutorFile: string;
 
   @Column({ nullable: true })
+  docRegistrationCertificate: string;
+
+  @Column({ nullable: true })
   academicPeriod: string;
 
   @Column({ name: 'year', nullable: true })

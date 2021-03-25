@@ -5,6 +5,12 @@ import { EnrollmentService } from './enrollment.service';
 import { EnrollmentDTO } from './dto/enrollment.dto';
 import { PersonService } from './person.service';
 import { PersonDTO } from './dto/person.dto';
+import { EnrollmentRepository } from '../repository/enrollment.repository';
+import { InjectRepository } from '@nestjs/typeorm';
+import { EnrollmentMapper } from './mapper/enrollment.mapper';
+import { TypeService } from './type.service';
+import { TypeDTO } from './dto/type.dto';
+import { State } from '../domain/enumeration/state';
 
 const { v4: uuidv4 } = require('uuid');
 const { Storage } = require('@google-cloud/storage');
@@ -22,20 +28,41 @@ export class PdfReportService {
     PATH_JSON_FIREBASE_STORAGE = process.env.PATH_JSON_FIREBASE_STORAGE;
     BUCKET_NAME = process.env.BUCKET_NAME;
 
-    constructor(private enrollmentsService: EnrollmentService,
-        private personService: PersonService) { }
+    constructor(@InjectRepository(EnrollmentRepository) private enrollmentRepository: EnrollmentRepository,
+        private personService: PersonService,
+        private typeService: TypeService) { }
 
 
     // Actualizar base de datos
     async processAndSaveCertificadoInscripcion(personId, matriculaId) {
 
-
-        let enrollmentSaved: EnrollmentDTO = await this.enrollmentsService.findById(matriculaId);
+        const resultEnrollment = await this.enrollmentRepository.findOne(matriculaId);
+        let enrollmentSaved: EnrollmentDTO = EnrollmentMapper.fromEntityToDTO(resultEnrollment);
         if (!enrollmentSaved) { throw new HttpException("Enrollment doesn't exist", HttpStatus.BAD_REQUEST) };
 
         let personSaved: PersonDTO = await this.personService.findById(personId);
-        if (!personSaved) { throw new HttpException("Enrollment doesn't exist", HttpStatus.BAD_REQUEST) };
+        if (!personSaved) { throw new HttpException("Person doesn't exist", HttpStatus.BAD_REQUEST) };
 
+        let gradeTypeSaved: TypeDTO = await this.typeService.findById(enrollmentSaved.gradeProx);
+        if (!gradeTypeSaved) { throw new HttpException("Grade type doesn't exist", HttpStatus.BAD_REQUEST) };
+
+        let workingDayTypeSaved: TypeDTO = await this.typeService.findById(enrollmentSaved.workingDay);
+        if (!workingDayTypeSaved) { throw new HttpException("Grade type doesn't exist", HttpStatus.BAD_REQUEST) };
+
+        let date = new Date()
+
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
+        let currentDate: string;
+
+        if (month < 10) {
+            currentDate = `${day}-0${month}-${year}`;
+        } else {
+            currentDate = `${day}-${month}-${year}`;
+        }
+        console.log(currentDate);
 
         var options = {
             format: "letter",
@@ -43,15 +70,14 @@ export class PdfReportService {
             border: "10mm",
         };
 
-        var users = {
-            name: "JHONBA325@HOTMAIL.COM",
-            age: "21",
-        };
-
         var document = {
             html: html,
             data: {
-                users: users,
+                dataEstudiante: personSaved,
+                dataMatricula: enrollmentSaved,
+                dataGrado: gradeTypeSaved.name,
+                dataWorkingDay: workingDayTypeSaved.name,
+                dataFechaInscripcion: currentDate
             },
             path: "./output27.pdf",
             type: "buffer",
@@ -90,24 +116,25 @@ export class PdfReportService {
         });
         const urlPublic = await storage.bucket(bucketName).file(path_image).publicUrl();
 
-        let getUrl = urlPublic;
+        enrollmentSaved['docRegistrationCertificate'] = urlPublic;
+        enrollmentSaved['state'] = State.PENDIENTE;
 
-        /*        
-        enrollmentSaved[dataType] = urlPublic;
-        const enrollmentUpdated = await this.enrollmentsService.update(enrollmentSaved);
-              if (!enrollmentUpdated) throw new HttpException("Enrollment couldn't be updated", HttpStatus.BAD_REQUEST);
-      
-              if (enrollmentUpdated) {
-                  return { messsage: "File uploaded Succesfully" };
-              };
-       */
+        const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentSaved);
+        let id = entity._id;
+        //const{_id, ...UpdateEnrollmentDto} = entity
+        if (entity._id == null || entity._id == "") {
+            throw new HttpException("No puede ir la matricula sin id", HttpStatus.BAD_REQUEST);
+        }
+        const update = await this.enrollmentRepository.update(id, entity);
 
-        console.log(getUrl);
+        const result = await this.enrollmentRepository.findOne(id);
+        let enrollmentUpdated = EnrollmentMapper.fromEntityToDTO(result);
 
+        if (!enrollmentUpdated) throw new HttpException("Enrollment couldn't be updated", HttpStatus.BAD_REQUEST);
 
-        return { messsage: "REPORTE CREADO" };
+        console.log(urlPublic);
 
-
+        return enrollmentUpdated;
 
 
     };

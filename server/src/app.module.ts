@@ -23,11 +23,8 @@ import { CourseModule } from './module/course.module';
     PersonModule,
     TypeModule,
     ReferenceModule,
-    PersonModule,
     EnrollmentModule,
-    CourseModule,
-    TypeModule,
-    ReferenceModule
+    CourseModule
     // jhipster-needle-add-entity-module-to-main - JHipster will add entity modules here, do not remove
   ],
   controllers: [

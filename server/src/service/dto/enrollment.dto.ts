@@ -47,6 +47,12 @@ export class EnrollmentDTO extends BaseDTO {
   @MinLength(20, { message: "La URL del documento del acudiente debe ser mayor o igual a $constraint1 caracteres" })
   docTutorFile: string;
 
+  @ApiModelProperty({ description: 'docRegistrationCertificate: field', required: false })
+  @IsOptional()
+  @IsString({ message: "La URL del documento certificado de inscripcion debe ser un String" })
+  @MinLength(20, { message: "La URL del documento certificado de inscripcion  debe ser mayor o igual a $constraint1 caracteres" })
+  docRegistrationCertificate: string;
+
   @ApiModelProperty({ description: 'academicPeriod field', required: false })
   @IsString({ message: "El periodo academico debe ser un String" })
   @MinLength(4, { message: "El periodo academico debe ser mayor o igual a $constraint1 caracteres" })
@@ -66,10 +72,9 @@ export class EnrollmentDTO extends BaseDTO {
   @MinLength(4, { message: "El obs debe ser mayor o igual a $constraint1 caracteres" })
   obs: string;
 
-  @ApiModelProperty({ description: 'workingDay field', required: false })
-  @IsString({ message: "La Jornada debe ser un String" })
-  @MinLength(4, { message: "La Jornada debe ser mayor o igual a $constraint1 caracteres" })
-  @MaxLength(20, { message: "La Jornada debe ser menor o igual a $constraint1 caracteres" })
+  @ApiModelProperty({ description: 'workingDay relationship', required: false })
+  @IsOptional()
+  @IsMongoId({ message: "La jornada debe ser MongoId" })
   workingDay: string;
 
   @ApiModelProperty({ description: 'enrollModality field', required: false })

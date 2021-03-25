@@ -21,6 +21,7 @@ export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
         @InjectRepository(AuthorityRepository) private authorityRepository: AuthorityRepository,
+        @InjectRepository(PersonRepository) private personRepository: PersonRepository,
         private userService: UserService,
         private emailService: EmailService
     ) { }
@@ -43,7 +44,7 @@ export class AuthService {
         const user = await this.findUserWithAuthById(userFind._id);
 
         const payload: Payload = { id: user._id, username: user.login, authorities: user.authorities };
-     
+
         /* eslint-disable */
         return {
             id_token: this.jwtService.sign(payload)

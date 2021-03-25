@@ -11,6 +11,8 @@ import { EnrollmentMapper } from './mapper/enrollment.mapper';
 import { TypeService } from './type.service';
 import { TypeDTO } from './dto/type.dto';
 import { State } from '../domain/enumeration/state';
+import { EmailService } from './email.service';
+import { AuthService } from './auth.service';
 
 const { v4: uuidv4 } = require('uuid');
 const { Storage } = require('@google-cloud/storage');
@@ -20,7 +22,7 @@ var pdf = require("pdf-creator-node");
 var fs = require("fs");
 
 // Read HTML Template
-var html = fs.readFileSync("template4.html", "utf8");
+var html = fs.readFileSync(process.env.VIEW_PATH_REPORT_PDF, "utf8");
 
 @Injectable()
 export class PdfReportService {
@@ -30,11 +32,15 @@ export class PdfReportService {
 
     constructor(@InjectRepository(EnrollmentRepository) private enrollmentRepository: EnrollmentRepository,
         private personService: PersonService,
-        private typeService: TypeService) { }
+        private typeService: TypeService,
+        private emailService: EmailService,
+        private authService: AuthService) { }
 
 
     // Actualizar base de datos
-    async processAndSaveCertificadoInscripcion(personId, matriculaId) {
+    async processAndSaveCertificadoInscripcion(userId, personId, matriculaId) {
+
+        const userDto = await this.authService.getAccount(userId);
 
         const resultEnrollment = await this.enrollmentRepository.findOne(matriculaId);
         let enrollmentSaved: EnrollmentDTO = EnrollmentMapper.fromEntityToDTO(resultEnrollment);
@@ -62,7 +68,6 @@ export class PdfReportService {
         } else {
             currentDate = `${day}-${month}-${year}`;
         }
-        console.log(currentDate);
 
         var options = {
             format: "letter",
@@ -79,7 +84,6 @@ export class PdfReportService {
                 dataWorkingDay: workingDayTypeSaved.name,
                 dataFechaInscripcion: currentDate
             },
-            path: "./output27.pdf",
             type: "buffer",
         };
         // By default a file is created but you could switch between Buffer and Streams by using "buffer" or "stream" respectively.
@@ -88,8 +92,6 @@ export class PdfReportService {
         let fileName: string;
 
         dataBuffer = await pdf.create(document, options);
-
-        console.log(dataBuffer);
 
         // Generar el nombre del archivo
         fileName = `certificadoInscripcion_${personId}.pdf`;
@@ -133,6 +135,8 @@ export class PdfReportService {
         if (!enrollmentUpdated) throw new HttpException("Enrollment couldn't be updated", HttpStatus.BAD_REQUEST);
 
         console.log(urlPublic);
+
+        await this.emailService.sendEmailReportPdfEnrollment(userDto, enrollmentUpdated);
 
         return enrollmentUpdated;
 

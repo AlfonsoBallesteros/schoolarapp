@@ -45,7 +45,7 @@ export class EnrollmentService {
     return resultList;
   }
 
-  async save(enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO | undefined> {
+  async save(userId: string, enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO | undefined> {
     if (enrollmentDTO._id != null) {
       throw new HttpException("La nueva matricula no puede tener un id", HttpStatus.BAD_REQUEST);
     }
@@ -65,8 +65,8 @@ export class EnrollmentService {
     }
 
     // Si no existe un proceso de matricula con ese estudiante, se crea.
-    const result = await this.enrollmentRepository.save(entity);
-    let resultPdfReport = await this.pdfReportService.processAndSaveCertificadoInscripcion(result.student, result._id);
+    const enrollmentSaved = await this.enrollmentRepository.save(entity);
+    let resultPdfReport = await this.pdfReportService.processAndSaveCertificadoInscripcion(userId, enrollmentSaved.student, enrollmentSaved._id);
     return EnrollmentMapper.fromEntityToDTO(resultPdfReport);
   }
 

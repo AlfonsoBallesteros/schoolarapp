@@ -52,6 +52,7 @@
     "passport": "0.4.1",
     "passport-jwt": "4.0.0",
     "pdf-creator-node": "^2.2.2",
+    "pdf-to-base64": "^1.0.3",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.3",
     "shelljs": "0.8.4",

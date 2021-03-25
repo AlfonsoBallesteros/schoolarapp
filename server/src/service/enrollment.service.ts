@@ -17,8 +17,7 @@ relationshipNames.push('student');
 export class EnrollmentService {
   logger = new Logger('EnrollmentService');
 
-  constructor(@InjectRepository(EnrollmentRepository) private enrollmentRepository: EnrollmentRepository,
-    private pdfReportService: PdfReportService) { }
+  constructor(@InjectRepository(EnrollmentRepository) private enrollmentRepository: EnrollmentRepository) { }
 
   async findById(id: string): Promise<EnrollmentDTO | undefined> {
     //const options = { relations: relationshipNames };
@@ -49,8 +48,6 @@ export class EnrollmentService {
     }
     const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
     const result = await this.enrollmentRepository.save(entity);
-    let resultPdfReport = await this.pdfReportService.processAndSaveCertificadoInscripcion(result.student, result._id);
-    console.log(resultPdfReport);
     return EnrollmentMapper.fromEntityToDTO(result);
   }
 

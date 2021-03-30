@@ -9,6 +9,7 @@ import { HeaderUtil } from '../../client/header-util';
 import { LoggingInterceptor } from '../../client/interceptors/logging.interceptor';
 import { UploadFileService } from '../../service/uploadfile.service';
 import { UpdateEnrollmentDto } from '../../service/dto/update-enrollment.dto';
+import { UploadFileDto } from '../../service/dto/upload-file.dto';
 
 @Controller('api/enrollments')
 @UseGuards(AuthGuard, RolesGuard)
@@ -45,10 +46,10 @@ export class EnrollmentController {
   @ApiResponse({
     status: 201,
     description: 'Uploaded files',
-    type: EnrollmentDTO,
+    type: UploadFileDto,
   })
-  async uploadFiles(@Req() req: Request): Promise<any> {
-    return await this.uploadFile.uploadFiles(req);
+  async uploadFiles(@Req() req: Request, @Body() uploadFileDto: UploadFileDto): Promise<any> {
+    return await this.uploadFile.uploadFiles(req, uploadFileDto);
   }
 
   @Get('/:id')

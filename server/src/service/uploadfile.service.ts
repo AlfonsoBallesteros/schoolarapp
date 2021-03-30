@@ -3,6 +3,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { EnrollmentService } from './enrollment.service';
 import { EnrollmentDTO } from './dto/enrollment.dto';
+import { UploadFileDto } from './dto/upload-file.dto';
 
 const path = require('path');
 
@@ -19,19 +20,19 @@ export class UploadFileService {
     constructor(private enrollmentsService: EnrollmentService) { }
 
 
-    async uploadFiles(req: any): Promise<any> {
+    async uploadFiles(req: any, uploadFileDto: UploadFileDto): Promise<any> {
         const filesData = req.files;
-        let { userId, matriculaId, dataType } = req.body
+        let { personId, matriculaId, dataType } = uploadFileDto;
 
         if (!filesData) {
-            throw new HttpException('No hay DATOS', HttpStatus.BAD_REQUEST);
+            throw new HttpException('No hay DATOS en el file', HttpStatus.BAD_REQUEST);
         }
 
         // Validar tipos
         const tiposValidosMatricula = ["docStudentFile", "docDadFile", "docMomFile", "docTutorFile", "academicFile", "peaceSafeFile"];
 
         if (tiposValidosMatricula.includes(dataType)) {
-            return this.processAndSaveMatriculaFiles(userId, matriculaId, dataType, filesData)
+            return this.processAndSaveMatriculaFiles(personId, matriculaId, dataType, filesData)
         } else {
             throw new HttpException('No es un documento valido', HttpStatus.BAD_REQUEST)
         }
@@ -40,7 +41,7 @@ export class UploadFileService {
 
 
     // Actualizar base de datos
-    async processAndSaveMatriculaFiles(userId, matriculaId, dataType, fileData) {
+    async processAndSaveMatriculaFiles(personId, matriculaId, dataType, fileData: UploadFileDto) {
 
         let file = fileData.filetosave;
         let size: number = (file.size) / 1000;
@@ -72,10 +73,10 @@ export class UploadFileService {
         if (!enrollmentSaved) { throw new HttpException("Enrollment doesn't exist", HttpStatus.BAD_REQUEST) };
 
         // Generar el nombre del archivo
-        file.name = `${dataType}_${userId}.${extensionArchivo}`;
+        file.name = `${dataType}_${personId}.${extensionArchivo}`;
 
         // Generar path del archivo
-        const path_image = `${userId}/${enrollmentSaved.year}/${file.name}`;
+        const path_image = `${personId}/${enrollmentSaved.year}/${file.name}`;
 
         // Guardar archivo en Firebase
         const storage = new Storage({

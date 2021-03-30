@@ -11,9 +11,9 @@ import { UploadFileService } from '../../service/uploadfile.service';
 import { UpdateEnrollmentDto } from '../../service/dto/update-enrollment.dto';
 
 @Controller('api/enrollments')
-//@UseGuards(AuthGuard, RolesGuard)
+@UseGuards(AuthGuard, RolesGuard)
 @UseInterceptors(LoggingInterceptor)
-//@ApiBearerAuth()
+@ApiBearerAuth()
 @ApiUseTags('enrollments')
 export class EnrollmentController {
   logger = new Logger('EnrollmentController');
@@ -63,7 +63,7 @@ export class EnrollmentController {
   }
 
   @PostMethod('/')
-  //@Roles(RoleType.STUDENT, RoleType.ADMIN)
+  @Roles(RoleType.STUDENT, RoleType.ADMIN)
   @ApiOperation({ title: 'Create enrollment' })
   @ApiResponse({
     status: 201,

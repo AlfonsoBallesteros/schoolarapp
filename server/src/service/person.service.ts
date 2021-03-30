@@ -86,4 +86,9 @@ export class PersonService {
     }
     return;
   }
+
+  async findParents(id: String): Promise<PersonDTO[] | undefined>{
+    const resultList = await this.personRepository.find({where: {parent: id}});
+    return resultList;
+  }
 }

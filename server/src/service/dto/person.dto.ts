@@ -180,7 +180,7 @@ export class PersonDTO extends BaseDTO {
   @IsOptional()
   @IsString({ message: "El campo padres debe ser un String" })
   @MinLength(4, { message: "El campo padres debe ser mayor o igual a $constraint1 caracteres" })
-  @MaxLength(20, { message: "El campo padres debe ser menor o igual a $constraint1 caracteres" })
+  @MaxLength(50, { message: "El campo padres debe ser menor o igual a $constraint1 caracteres" })
   parent: string;
 
 

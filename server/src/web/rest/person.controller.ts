@@ -88,4 +88,16 @@ export class PersonController {
     HeaderUtil.addEntityDeletedHeaders(req.res, 'Person', id);
     return await this.personService.deleteById(id);
   }
+
+  @Get('/parents/:id')
+  @Roles(RoleType.STUDENT, RoleType.ADMIN)
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: PersonDTO
+  })
+  async getAllParents(@Param('id') id: string): Promise<PersonDTO[]> {
+    return await this.personService.findParents(id);
+  }
+
 }

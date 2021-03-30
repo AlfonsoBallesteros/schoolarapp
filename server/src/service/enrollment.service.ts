@@ -69,4 +69,11 @@ export class EnrollmentService {
     }
     return;
   }
+
+  async findByUser(id: string): Promise<EnrollmentDTO | undefined> {
+    //const options = { relations: relationshipNames };
+    const result = await this.enrollmentRepository.findOne({where: {student: id, year: new Date().getFullYear().toString()}});
+    this.logger.error(result._id);
+    return EnrollmentMapper.fromEntityToDTO(result);
+  }
 }

@@ -49,6 +49,7 @@ export class EnrollmentDTO extends BaseDTO {
 
   @ApiModelProperty({ description: 'academicPeriod field', required: false })
   @IsString({ message: "El periodo academico debe ser un String" })
+  @IsOptional()
   @MinLength(4, { message: "El periodo academico debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(20, { message: "El periodo academico debe ser menor o igual a $constraint1 caracteres" })
   academicPeriod: string;
@@ -58,6 +59,7 @@ export class EnrollmentDTO extends BaseDTO {
   @IsNotEmpty({ message: "El año no debe estar vacio" })
   @MinLength(4, { message: "El año debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(4, { message: "El año debe ser menor o igual a $constraint1 caracteres" })
+  @IsOptional()
   year: string;
 
   @ApiModelProperty({ description: 'obs field', required: false })
@@ -70,17 +72,20 @@ export class EnrollmentDTO extends BaseDTO {
   @IsString({ message: "La Jornada debe ser un String" })
   @MinLength(4, { message: "La Jornada debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(20, { message: "La Jornada debe ser menor o igual a $constraint1 caracteres" })
+  @IsOptional()
   workingDay: string;
 
   @ApiModelProperty({ description: 'enrollModality field', required: false })
   @IsString({ message: "La Modalidad de matricula debe ser un String" })
   @MinLength(4, { message: "La Modalidad debe ser mayor o igual a $constraint1 caracteres" })
   @MaxLength(20, { message: "La Modalidad debe ser menor o igual a $constraint1 caracteres" })
+  @IsOptional()
   enrollModality: string;
 
   @ApiModelProperty({ description: 'legacy field', required: false })
   @IsBoolean({ message: "El campo aceptar documento legal debe ser Boolean" })
   @IsNotEmpty({ message: "El campo aceptar documento legal no debe estar vacio" })
+  @IsOptional()
   legacy: boolean;
 
   @ApiModelProperty({ enum: State, description: 'state enum field', required: false })

@@ -88,6 +88,7 @@ export class EmailService {
 
         let certificadoInscripcion = await pdf2base64(enrollment.docRegistrationCertificate);
         let politicaDatos = await pdf2base64('https://storage.googleapis.com/schoolarapp-a9f3b.appspot.com/PoliticasDatos/SchoolarApp_PoliticaTratamientoDeDatos.pdf');
+        let ManualConvivencia = await pdf2base64('https://storage.googleapis.com/schoolarapp-a9f3b.appspot.com/ManualConvivencia/ManualConvivencia.pdf');
 
         const msg = {
             to: user.email,
@@ -111,6 +112,12 @@ export class EmailService {
                 {
                     content: politicaDatos,
                     filename: "Politica_Datos.pdf",
+                    type: "application/pdf",
+                    disposition: "attachment"
+                },
+                {
+                    content: ManualConvivencia,
+                    filename: "Manual_Convivencia.pdf",
                     type: "application/pdf",
                     disposition: "attachment"
                 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        position: relative;
+        text-align: center;
+      }
+      .centered {
+        position: absolute;
+        bottom: -107px;
+        left: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="https://firebasestorage.googleapis.com/v0/b/schoolarapp-a9f3b.appspot.com/o/ImagenesReporte%2Flogo_tecnico_reporte.png?alt=media&token=dca17ff4-749b-422a-8615-213d34c8ed89"
+        alt=""
+      />
+      <div class="centered">
+        <p>&nbsp;</p>
+        <!-- #######  YAY, I AM THE SOURCE EDITOR! #########-->
+        <h3 style="color: #5e9ca0; text-align: center;"><span style="color: #000000;">CERTIFICADO DE INSCRIPCION</span></h3>
+        <p>&nbsp;</p>
+        <table style="height: 126px; width: 68.856%; border-collapse: collapse; margin-left: auto; margin-right: auto;" border="0">
+          <tbody>
+            <tr style="height: 18px;">
+              <td style="width: 57.4439%; height: 18px; text-align: left;">N&uacute;mero de Inscripci&oacute;n:</td>
+              <td style="width: 35.7128%; height: 18px; text-align: left;">{{dataMatricula._id}}</td>
+            </tr>
+            <tr style="height: 18px;">
+              <td style="width: 57.4439%; height: 18px; text-align: left;">Identificaci&oacute;n:</td>
+              <td style="width: 35.7128%; height: 18px; text-align: left;">{{dataEstudiante.documentId}}</td>
+            </tr>
+            <tr style="height: 18px;">
+              <td style="width: 57.4439%; height: 18px; text-align: left;">Nombre:</td>
+              <td style="width: 35.7128%; height: 18px; text-align: left;">{{dataEstudiante.name}}</td>
+            </tr>
+            <tr style="height: 18px;">
+              <td style="width: 57.4439%; height: 18px; text-align: left;">Apellido:</td>
+              <td style="width: 35.7128%; height: 18px; text-align: left;">{{dataEstudiante.surname}}</td>
+            </tr>
+            <tr style="height: 18px;">
+              <td style="width: 57.4439%; height: 18px; text-align: left;">Grado:</td>
+              <td style="width: 35.7128%; height: 18px; text-align: left;">{{dataGrado}}</td>
+            </tr>
+            <tr style="height: 18px;">
+              <td style="width: 57.4439%; height: 18px; text-align: left;">Jornada:</td>
+              <td style="width: 35.7128%; height: 18px; text-align: left;">{{dataWorkingDay}}</td>
+            </tr>
+            <tr style="height: 18px;">
+              <td style="width: 57.4439%; height: 18px; text-align: left;">Fecha de Inscripcion:</td>
+              <td style="width: 35.7128%; height: 18px; text-align: left;">{{dataFechaInscripcion}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="ft11">&nbsp;</p>
+        <p class="ft11" style="text-align: justify;">
+          La INSTITUCION EDUCATIVA TECNICO SUPERIOR DE NEIVA hace entrega del certificado de inscripcion.
+        </p>
+        <p class="ft11" style="text-align: justify;">
+          NOTA: La validez de su inscripci&oacute;n esta sujeta a la verificaci&oacute;n de datos que se realizar&aacute; con
+          informaci&oacute;n suministrada por el aspirante, los resultados de esta verificaci&oacute;n ser&aacute;n publicados en el listado
+          de inscritos, por favor revise el estado de su inscripci&oacute;n.
+        </p>
+        <p class="ft11" style="text-align: justify;">
+          La inscripci&oacute;n se considera valida cuando su estado sea el siguiente: Inscripcion Valida.
+        </p>
+        <p class="ft11" style="text-align: justify;">Si considera necesario imprima el Certificado de Inscripci&oacute;n</p>
+        <p class="ft11" style="text-align: justify;">Fecha de emision(d/m/a): {{dataFechaInscripcion}}</p>
+        <p><strong>&nbsp;</strong></p>
+      </div>
+    </div>
+  </body>
+</html>

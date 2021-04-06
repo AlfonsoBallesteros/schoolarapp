@@ -5,6 +5,9 @@ import { EnrollmentDTO } from '../service/dto/enrollment.dto';
 import { EnrollmentMapper } from '../service/mapper/enrollment.mapper';
 import { EnrollmentRepository } from '../repository/enrollment.repository';
 import { UpdateEnrollmentDto } from './dto/update-enrollment.dto';
+import { PdfReportService } from './pdf-report.service';
+import { PersonService } from './person.service';
+
 
 const relationshipNames = [];
 relationshipNames.push('workShop');
@@ -15,7 +18,9 @@ relationshipNames.push('student');
 export class EnrollmentService {
   logger = new Logger('EnrollmentService');
 
-  constructor(@InjectRepository(EnrollmentRepository) private enrollmentRepository: EnrollmentRepository) {}
+  constructor(@InjectRepository(EnrollmentRepository) private enrollmentRepository: EnrollmentRepository,
+    private personService: PersonService,
+    private pdfReportService: PdfReportService) { }
 
   async findById(id: string): Promise<EnrollmentDTO | undefined> {
     //const options = { relations: relationshipNames };
@@ -40,20 +45,36 @@ export class EnrollmentService {
     return resultList;
   }
 
-  async save(enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO | undefined> {
-    if(enrollmentDTO._id != null){
+  async save(userId: string, enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO | undefined> {
+    if (enrollmentDTO._id != null) {
       throw new HttpException("La nueva matricula no puede tener un id", HttpStatus.BAD_REQUEST);
     }
+
     const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
-    const result = await this.enrollmentRepository.save(entity);
-    return EnrollmentMapper.fromEntityToDTO(result);
+
+    // Validar si existe el estudiante que desea crear la matricula
+    let checkPerson = await this.personService.findById(entity.student);
+    if (!checkPerson) { throw new HttpException("Person doesn't exist", HttpStatus.BAD_REQUEST) };
+
+    // Validar si ya existe un proceso de matricula 
+    let checkEnrollment = await this.enrollmentRepository.findOne({ student: entity.student })
+    checkEnrollment = EnrollmentMapper.fromEntityToDTO(checkEnrollment);
+
+    if (checkEnrollment) {
+      if (checkEnrollment.state === 'PENDIENTE') { throw new HttpException("El estudiante tiene un proceso de matricula pendiente", HttpStatus.BAD_REQUEST) };
+    }
+
+    // Si no existe un proceso de matricula con ese estudiante, se crea.
+    const enrollmentSaved = await this.enrollmentRepository.save(entity);
+    let resultPdfReport = await this.pdfReportService.processAndSaveCertificadoInscripcion(userId, enrollmentSaved.student, enrollmentSaved._id);
+    return EnrollmentMapper.fromEntityToDTO(resultPdfReport);
   }
 
   async update(enrollmentDTO: UpdateEnrollmentDto): Promise<EnrollmentDTO | undefined> {
     const entity = EnrollmentMapper.fromDTOtoEntity(enrollmentDTO);
     let id = entity._id;
     //const{_id, ...UpdateEnrollmentDto} = entity
-    if(entity._id == null || entity._id==""){
+    if (entity._id == null || entity._id == "") {
       throw new HttpException("No puede ir la matricula sin id", HttpStatus.BAD_REQUEST);
     }
     const update = await this.enrollmentRepository.update(id, entity);

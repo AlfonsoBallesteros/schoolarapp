@@ -10,11 +10,13 @@ import { EmailService } from './email.service';
 import * as bcrypt from 'bcrypt';
 import { PersonRepository } from '../repository/person.repository';
 
-const { v4: uuidv4 } = require('uuid');
-const { Storage } = require('@google-cloud/storage');
-
 @Injectable()
 export class AuthService {
+
+
+    PATH_JSON_FIREBASE_STORAGE = process.env.PATH_JSON_FIREBASE_STORAGE;
+    BUCKET_NAME = process.env.BUCKET_NAME;
+
     logger = new Logger('AuthService');
     constructor(
         private readonly jwtService: JwtService,

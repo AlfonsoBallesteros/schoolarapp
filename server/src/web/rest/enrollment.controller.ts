@@ -73,7 +73,8 @@ export class EnrollmentController {
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
   async post(@Req() req: Request, @Body() enrollmentDTO: EnrollmentDTO): Promise<EnrollmentDTO> {
-    const created = await this.enrollmentService.save(enrollmentDTO);
+    const user: any = req.user;
+    const created = await this.enrollmentService.save(user._id, enrollmentDTO);
     HeaderUtil.addEntityCreatedHeaders(req.res, 'Enrollment', created._id);
     return created;
   }

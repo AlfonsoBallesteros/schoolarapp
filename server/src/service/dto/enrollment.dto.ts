@@ -47,6 +47,12 @@ export class EnrollmentDTO extends BaseDTO {
   @MinLength(20, { message: "La URL del documento del acudiente debe ser mayor o igual a $constraint1 caracteres" })
   docTutorFile: string;
 
+  @ApiModelProperty({ description: 'docRegistrationCertificate: field', required: false })
+  @IsOptional()
+  @IsString({ message: "La URL del documento certificado de inscripcion debe ser un String" })
+  @MinLength(20, { message: "La URL del documento certificado de inscripcion  debe ser mayor o igual a $constraint1 caracteres" })
+  docRegistrationCertificate: string;
+
   @ApiModelProperty({ description: 'academicPeriod field', required: false })
   @IsString({ message: "El periodo academico debe ser un String" })
   @IsOptional()
